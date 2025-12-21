@@ -29,15 +29,15 @@
             <div class="p-8 min-h-[600px] bg-white">
                 
                 <div id="stats-step-1" class="stats-step active">
-                    <h4 class="text-xl font-bold mb-6 text-stone-900">1. Number of Dependent Variables (Outcome)</h4>
+                    <h4 class="text-xl font-bold mb-6 text-stone-900">1. Number of Dependent Variables (Outcome/How many variable are you expecting?)</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button onclick="selectStatsStep(1, '1')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                            <span class="block font-bold">One DV</span>
-                            <span class="text-xs text-stone-500">You are testing one primary result.</span>
+                            <span class="block font-bold">One (1) DV</span>
+                            <span class="text-xs text-stone-500">You are testing/expecting one primary result/variable.</span>
                         </button>
                         <button onclick="selectStatsStep(1, 'multi')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                            <span class="block font-bold">Two or More DVs</span>
-                            <span class="text-xs text-stone-500">Testing multiple outcomes simultaneously (e.g. MANOVA).</span>
+                            <span class="block font-bold">Two+ DVs</span>
+                            <span class="text-xs text-stone-500">Testing/Expecting multiple outcomes/variables simultaneously (e.g. MANOVA).</span>
                         </button>
                     </div>
                 </div>
@@ -72,11 +72,11 @@
                             <span class="text-xs text-stone-500">Comparing group to a known constant.</span>
                         </button>
                         <button onclick="selectStatsStep(3, '1')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                            <span class="block font-bold">One IV</span>
+                            <span class="block font-bold">One (1) IV</span>
                             <span class="text-xs text-stone-500">Testing one cause/grouping factor.</span>
                         </button>
                         <button onclick="selectStatsStep(3, 'multi')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                            <span class="block font-bold">Two or More IVs</span>
+                            <span class="block font-bold">Two+ IVs</span>
                             <span class="text-xs text-stone-500">Testing multiple factors or interactions.</span>
                         </button>
                     </div>
