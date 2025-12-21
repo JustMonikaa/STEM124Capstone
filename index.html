@@ -248,101 +248,111 @@
             </div>
         </section>
 
-        <!-- TOOLS SECTION (UNCHANGED LOGIC) -->
+        <!-- TOOLS SECTION -->
         <section id="tools" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
-             <!-- [RE-USED LOGIC FROM PREVIOUS RESPONSE - STATS ENGINE] -->
-             <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-stone-200">
-                <div class="bg-stone-900 p-6 text-white flex justify-between items-center">
-                    <h3 class="font-bold text-xl">Expert Statistical Decision Engine</h3>
-                    <button onclick="resetStatsWizard()" class="text-xs bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-full transition">Reset Wizard</button>
+            
+            <!-- LOCK SCREEN -->
+            <div id="tools-lock-screen" class="bg-white rounded-3xl shadow-xl p-12 flex flex-col items-center justify-center text-center border border-stone-200">
+                <div class="bg-amber-100 p-6 rounded-full mb-6">
+                    <span class="text-4xl">&#128274;</span>
                 </div>
+                <h3 class="text-2xl font-extrabold text-stone-900 mb-2">Authorized Access Required</h3>
+                <p class="text-stone-500 max-w-xs mb-8 text-sm">The Expert Statistical Engine is reserved for validated STEM students. Please enter the course access key.</p>
                 
-                <div class="p-8 min-h-[400px]">
-                    <div id="stats-step-1" class="stats-step active">
-                        <h4 class="text-xl font-bold mb-6">1. What is the nature of your Dependent Variable (DV)?</h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <button onclick="selectStatsStep(1, 'continuous')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                <span class="block font-bold">Continuous</span>
-                                <span class="text-xs text-stone-500">Scale/Ratio measurements (e.g. 10.5kg, 3.2m, 45sec)</span>
-                            </button>
-                            <button onclick="selectStatsStep(1, 'categorical')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                <span class="block font-bold">Categorical</span>
-                                <span class="text-xs text-stone-500">Groups/Categories (e.g. Yes/No, Red/Blue, Pass/Fail)</span>
-                            </button>
-                            <button onclick="selectStatsStep(1, 'ordinal')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                <span class="block font-bold">Ordinal</span>
-                                <span class="text-xs text-stone-500">Ranked data (e.g. Low/Med/High, 1st/2nd/3rd)</span>
-                            </button>
-                        </div>
-                    </div>
+                <div class="w-full max-w-sm flex flex-col gap-3">
+                    <input type="password" id="access-key" placeholder="Enter Access Key" class="w-full px-6 py-4 rounded-2xl border-2 border-stone-100 focus:border-amber-500 focus:outline-none transition-all text-center font-bold tracking-widest">
+                    <button onclick="unlockTools()" class="w-full bg-stone-900 text-white py-4 rounded-2xl font-bold hover:bg-stone-800 transition-all shadow-lg shadow-stone-200">Unlock Engine</button>
+                    <p id="lock-error" class="text-red-500 text-xs font-bold mt-2 hidden">Incorrect access key. Please try again.</p>
+                </div>
+            </div>
 
-                    <div id="stats-step-2" class="stats-step">
-                        <h4 class="text-xl font-bold mb-6">2. How many Independent Variables (IV) or groups?</h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <button onclick="selectStatsStep(2, 'one-cat-2')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                <span class="block font-bold text-lg">Two Groups</span>
-                                <span class="text-xs text-stone-500">Comparing your invention vs. 1 existing control.</span>
-                            </button>
-                            <button onclick="selectStatsStep(2, 'one-cat-many')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                <span class="block font-bold text-lg">Three+ Groups</span>
-                                <span class="text-xs text-stone-500">Testing different concentrations or multiple variations.</span>
-                            </button>
-                            <button onclick="selectStatsStep(2, 'one-cont')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                <span class="block font-bold text-lg">One Continuous IV</span>
-                                <span class="text-xs text-stone-500">Finding relationship (e.g. More Heat = More Growth?)</span>
-                            </button>
-                        </div>
+            <!-- ENGINE CONTENT (Hidden by default) -->
+            <div id="tools-unlocked-content" class="hidden space-y-8">
+                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-stone-200">
+                    <div class="bg-stone-900 p-6 text-white flex justify-between items-center">
+                        <h3 class="font-bold text-xl">Expert Statistical Decision Engine</h3>
+                        <button onclick="resetStatsWizard()" class="text-xs bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-full transition">Reset Wizard</button>
                     </div>
-
-                    <div id="stats-step-3" class="stats-step">
-                        <h4 class="text-xl font-bold mb-6">3. Are the samples Independent or Paired?</h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <button onclick="selectStatsStep(3, 'independent')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                <span class="block font-bold text-lg">Independent</span>
-                                <span class="text-xs text-stone-500">Comparing Group A vs Group B (different subjects).</span>
-                            </button>
-                            <button onclick="selectStatsStep(3, 'paired')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                <span class="block font-bold text-lg">Paired / Related</span>
-                                <span class="text-xs text-stone-500">Same subject tested Before and After.</span>
-                            </button>
+                    
+                    <div class="p-8 min-h-[400px]">
+                        <div id="stats-step-1" class="stats-step active">
+                            <h4 class="text-xl font-bold mb-6">1. What is the nature of your Dependent Variable (DV)?</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <button onclick="selectStatsStep(1, 'continuous')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                    <span class="block font-bold">Continuous</span>
+                                    <span class="text-xs text-stone-500">Scale/Ratio measurements (e.g. 10.5kg, 3.2m, 45sec)</span>
+                                </button>
+                                <button onclick="selectStatsStep(1, 'categorical')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                    <span class="block font-bold">Categorical</span>
+                                    <span class="text-xs text-stone-500">Groups/Categories (e.g. Yes/No, Red/Blue, Pass/Fail)</span>
+                                </button>
+                                <button onclick="selectStatsStep(1, 'ordinal')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                    <span class="block font-bold">Ordinal</span>
+                                    <span class="text-xs text-stone-500">Ranked data (e.g. Low/Med/High, 1st/2nd/3rd)</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
 
-                    <div id="stats-result" class="stats-step p-10 bg-amber-50 border-2 border-amber-200 rounded-3xl">
-                        <span class="inline-block bg-amber-600 text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase mb-4">Recommended Statistical Test</span>
-                        <h4 id="res-test-name" class="text-3xl font-extrabold text-stone-900 mb-4">Test Name</h4>
-                        <p id="res-test-desc" class="text-lg text-stone-600 mb-8 leading-relaxed">Description...</p>
-                        <div class="p-4 bg-white rounded-xl border border-amber-200 text-xs font-mono text-stone-500">
-                            Logic: <span id="res-ucla-logic">...</span>
+                        <div id="stats-step-2" class="stats-step">
+                            <h4 class="text-xl font-bold mb-6">2. How many Independent Variables (IV) or groups?</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <button onclick="selectStatsStep(2, 'one-cat-2')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                    <span class="block font-bold text-lg">Two Groups</span>
+                                    <span class="text-xs text-stone-500">Comparing your invention vs. 1 existing control.</span>
+                                </button>
+                                <button onclick="selectStatsStep(2, 'one-cat-many')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                    <span class="block font-bold text-lg">Three+ Groups</span>
+                                    <span class="text-xs text-stone-500">Testing different concentrations or multiple variations.</span>
+                                </button>
+                                <button onclick="selectStatsStep(2, 'one-cont')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                    <span class="block font-bold text-lg">One Continuous IV</span>
+                                    <span class="text-xs text-stone-500">Finding relationship (e.g. More Heat = More Growth?)</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="stats-step-3" class="stats-step">
+                            <h4 class="text-xl font-bold mb-6">3. Are the samples Independent or Paired?</h4>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <button onclick="selectStatsStep(3, 'independent')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                    <span class="block font-bold text-lg">Independent</span>
+                                    <span class="text-xs text-stone-500">Comparing Group A vs Group B (different subjects).</span>
+                                </button>
+                                <button onclick="selectStatsStep(3, 'paired')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                    <span class="block font-bold text-lg">Paired / Related</span>
+                                    <span class="text-xs text-stone-500">Same subject tested Before and After.</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="stats-result" class="stats-step p-10 bg-amber-50 border-2 border-amber-200 rounded-3xl">
+                            <span class="inline-block bg-amber-600 text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase mb-4">Recommended Statistical Test</span>
+                            <h4 id="res-test-name" class="text-3xl font-extrabold text-stone-900 mb-4">Test Name</h4>
+                            <p id="res-test-desc" class="text-lg text-stone-600 mb-8 leading-relaxed">Description...</p>
+                            <div class="p-4 bg-white rounded-xl border border-amber-200 text-xs font-mono text-stone-500">
+                                Logic: <span id="res-ucla-logic">...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-             </div>
+            </div>
         </section>
 
     </main>
 
     <!-- Placeholder Comments -->
-    <!-- Chosen Palette: Stone (Neutrals) for professionalism, Amber (Yellow-Orange) for STEM/Industrial energy. -->
     <!-- Application Structure Plan: 
-         - Dashboard: Immediate KPIs and visual overview.
-         - Timeline Navigation: Forces sequential exploration of the 13-week crunch.
-         - Depth: Each phase expanded with "Logbook Protocols" and "Weekly Breakdown".
-         - Stats Engine: Retained UCLA-based logic as requested.
-         - Countdown: Visual urgency for the March 30 deadline.
+         - Tools section now contains a logic fork: Lock Screen vs. Content.
+         - Logic check against "lsfraven" handles visibility of the Statistical Engine.
+         - Maintaining the exact Stone/Amber color palette and Plus Jakarta Sans font throughout the lock screen.
     -->
-    <!-- Visualization & Content Choices:
-         - Effort Bar Chart (Chart.js): Shows intensity peaking at the Defense.
-         - Weights Doughnut (Chart.js): Visually reinforces that Product > Paper.
-         - Test Sim (Chart.js): Mini-viz to show what a data trial looks like.
-         Confirming NO SVG/Mermaid used.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Password logic added without design alteration. -->
 
     <script>
         // --- State ---
         const statsSelection = { dvType: null, ivConfig: null, pairing: null };
         const defenseDate = new Date("March 30, 2026 08:00:00").getTime();
+        let isToolsUnlocked = false;
 
         // --- Navigation ---
         function navigate(target) {
@@ -360,19 +370,38 @@
             if(window.innerWidth < 768) document.getElementById('sidebar').classList.add('hidden');
         }
 
+        // --- Access Logic ---
+        function unlockTools() {
+            const pass = document.getElementById('access-key').value;
+            const error = document.getElementById('lock-error');
+            
+            if (pass === "lsfraven") {
+                isToolsUnlocked = true;
+                document.getElementById('tools-lock-screen').classList.add('hidden');
+                document.getElementById('tools-unlocked-content').classList.remove('hidden');
+                error.classList.add('hidden');
+            } else {
+                error.classList.remove('hidden');
+                document.getElementById('access-key').value = "";
+                document.getElementById('access-key').focus();
+            }
+        }
+
+        // Allow 'Enter' key for password
+        document.getElementById('access-key')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') unlockTools();
+        });
+
         // --- Countdown Logic ---
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = defenseDate - now;
-            
             if (distance < 0) {
                 document.getElementById('countdown').innerHTML = "<p class='text-amber-500 font-bold col-span-2'>DEFENSE IS ON!</p>";
                 return;
             }
-
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
             document.getElementById('cd-days').innerText = days;
             document.getElementById('cd-hours').innerText = hours;
         }
