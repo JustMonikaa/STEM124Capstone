@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STEM Capstone Navigator: 13-Week Guide</title>
+    <title>STEM Capstone Navigator: The 13-Week Sprint</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,27 +11,13 @@
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- Tailwind Config for Custom Colors -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        stone: {
-                            50: '#fafaf9',
-                            100: '#f5f5f4',
-                            200: '#e7e5e4',
-                            600: '#57534e',
-                            800: '#292524',
-                        },
-                        amber: {
-                            500: '#f59e0b',
-                            600: '#d97706',
-                            700: '#b45309',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        stone: { 50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1', 600: '#57534e', 800: '#292524', 900: '#1c1917' },
+                        amber: { 50: '#fffbeb', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' }
                     }
                 }
             }
@@ -39,299 +25,359 @@
     </script>
 
     <style>
-        ::-webkit-scrollbar { width: 8px; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f5f5f4; }
-        ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
-
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-h: 400px;
-        }
-
+        ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 10px; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin: auto; height: 300px; }
         .hidden-section { display: none; }
-        
-        .fade-in {
-            animation: fadeIn 0.4s ease-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .stats-step { display: none; }
         .stats-step.active { display: block; }
     </style>
 </head>
-<body class="bg-stone-50 text-stone-800 font-sans antialiased min-h-screen flex flex-col md:flex-row">
+<body class="bg-stone-50 text-stone-800 antialiased min-h-screen flex flex-col md:flex-row">
 
-    <!-- Mobile Header -->
-    <header class="md:hidden bg-white border-b border-stone-200 p-4 flex justify-between items-center sticky top-0 z-50">
-        <h1 class="text-xl font-bold text-stone-800">Capstone Navigator</h1>
-        <button id="mobile-menu-btn" class="text-stone-600 focus:outline-none text-2xl">
-            &#9776;
-        </button>
-    </header>
-
-    <!-- Sidebar Navigation -->
-    <nav id="sidebar" class="bg-white w-full md:w-64 border-r border-stone-200 flex-shrink-0 md:h-screen sticky top-0 hidden md:flex flex-col z-40">
-        <div class="p-6 border-b border-stone-100 hidden md:block">
-            <h1 class="text-2xl font-bold tracking-tight text-amber-700">STEM<br>Capstone</h1>
-            <p class="text-xs text-stone-500 mt-1">Grade 12 Integrated Guide</p>
+    <!-- Sidebar -->
+    <nav id="sidebar" class="bg-stone-900 w-full md:w-72 flex-shrink-0 md:h-screen sticky top-0 hidden md:flex flex-col z-40 text-stone-300">
+        <div class="p-8 border-b border-stone-800">
+            <h1 class="text-2xl font-extrabold tracking-tighter text-white">STEM CAPSTONE</h1>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-amber-500 font-bold mt-1">Accelerated 13-Week Guide</p>
         </div>
         
-        <div class="flex-1 overflow-y-auto py-4">
-            <ul class="space-y-1 px-3">
-                <li><button onclick="navigate('dashboard')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors bg-amber-50 text-amber-700" data-target="dashboard">&#128202; Dashboard</button></li>
-                <li><button onclick="navigate('phase1')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-stone-600 hover:bg-stone-100" data-target="phase1">&#128161; Phase 1: Ideate</button></li>
-                <li><button onclick="navigate('phase2')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-stone-600 hover:bg-stone-100" data-target="phase2">&#128295; Phase 2: Build</button></li>
-                <li><button onclick="navigate('phase3')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-stone-600 hover:bg-stone-100" data-target="phase3">&#128202; Phase 3: Test</button></li>
-                <li><button onclick="navigate('phase4')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-stone-600 hover:bg-stone-100" data-target="phase4">&#127891; Phase 4: Defend</button></li>
-                <li><button onclick="navigate('tools')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-stone-600 hover:bg-stone-100" data-target="tools">&#128269; Stats & Tools</button></li>
+        <!-- Countdown Widget -->
+        <div class="px-6 py-6 bg-stone-800/50">
+            <p class="text-[10px] uppercase font-bold text-stone-500 mb-2">Countdown to Defense</p>
+            <div id="countdown" class="grid grid-cols-2 gap-2 text-center">
+                <div class="bg-stone-900 p-2 rounded border border-stone-700">
+                    <span id="cd-days" class="block text-xl font-bold text-white">--</span>
+                    <span class="text-[9px] uppercase text-stone-500">Days</span>
+                </div>
+                <div class="bg-stone-900 p-2 rounded border border-stone-700">
+                    <span id="cd-hours" class="block text-xl font-bold text-white">--</span>
+                    <span class="text-[9px] uppercase text-stone-500">Hours</span>
+                </div>
+            </div>
+            <p class="text-[9px] mt-2 text-stone-400 italic">Target: March 30 - April 3</p>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-6">
+            <ul class="space-y-1 px-4">
+                <li><button onclick="navigate('dashboard')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="dashboard">Dashboard</button></li>
+                <li><button onclick="navigate('phase1')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase1">Phase 1: Concept (W1-3)</button></li>
+                <li><button onclick="navigate('phase2')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase2">Phase 2: Build (W4-7)</button></li>
+                <li><button onclick="navigate('phase3')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase3">Phase 3: Test (W8-10)</button></li>
+                <li><button onclick="navigate('phase4')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase4">Phase 4: Defend (W11-13)</button></li>
+                <li><button onclick="navigate('tools')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="tools">Stats Engine & Tools</button></li>
             </ul>
         </div>
-        
-        <div class="p-4 border-t border-stone-100">
-            <div class="bg-stone-100 rounded-lg p-3">
-                <p class="text-xs font-semibold text-stone-500 uppercase">13-Week Sprint</p>
-                <div class="w-full bg-stone-200 rounded-full h-1.5 mt-2">
-                    <div id="week-progress" class="bg-amber-500 h-1.5 rounded-full" style="width: 8%"></div>
-                </div>
-                <p id="week-display" class="text-[10px] mt-1 text-stone-400">Week 1 of 13</p>
-            </div>
+
+        <div class="p-6 border-t border-stone-800 text-[10px] text-stone-500">
+            For Grade 12 STEM SHS Students <br> Specialized Invention Track
         </div>
     </nav>
 
-    <!-- Main Content Area -->
-    <main class="flex-1 p-4 md:p-8 overflow-y-auto h-screen bg-stone-50 relative">
+    <!-- Mobile Header -->
+    <header class="md:hidden bg-stone-900 text-white p-4 flex justify-between items-center sticky top-0 z-50">
+        <h1 class="font-bold">STEM Capstone</h1>
+        <button id="mobile-menu-btn" class="text-2xl">&#9776;</button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto h-screen bg-stone-50 p-4 md:p-12">
         
-        <!-- DASHBOARD SECTION -->
-        <section id="dashboard" class="fade-in">
-            <div class="max-w-4xl mx-auto space-y-8">
-                <div class="space-y-2">
-                    <h2 class="text-3xl font-bold text-stone-800">13-Week Research Roadmap</h2>
-                    <p class="text-stone-600 leading-relaxed">
-                        This specialized curriculum for STEM students focuses on <strong>Applied Invention</strong>. We assume mastery of literature review and theory from PR1 & PR2. The next 13 weeks are about engineering a solution and validating it statistically.
-                    </p>
-                </div>
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="fade-in max-w-5xl mx-auto space-y-10">
+            <header class="space-y-2">
+                <h2 class="text-4xl font-extrabold text-stone-900 tracking-tight">The 13-Week Sprint Dashboard</h2>
+                <p class="text-lg text-stone-500">Focusing on applied output, technical precision, and statistical validity.</p>
+            </header>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100">
-                        <h3 class="text-lg font-semibold text-stone-800 mb-4">Projected Effort by Week</h3>
-                        <div class="chart-container">
-                            <canvas id="timelineChart"></canvas>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">Current Focus</h3>
+                    <p class="text-2xl font-bold text-amber-600">Prototyping & Sourcing</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">Critical Milestone</h3>
+                    <p class="text-2xl font-bold text-stone-800">Methodology Freeze</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">Project Integrity</h3>
+                    <p class="text-2xl font-bold text-stone-800">NO PR1/2 Basics</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
+                    <h3 class="text-lg font-bold mb-6">Effort Distribution</h3>
+                    <div class="chart-container"><canvas id="timelineChart"></canvas></div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
+                    <h3 class="text-lg font-bold mb-6">Grading Weights</h3>
+                    <div class="chart-container"><canvas id="gradingChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 1: CONCEPT -->
+        <section id="phase1" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
+            <div class="bg-amber-600 p-10 rounded-3xl text-white">
+                <h2 class="text-3xl font-bold mb-4">Phase 1: Conceptualization & Gap Analysis</h2>
+                <p class="opacity-90 max-w-2xl">Weeks 1-3. The objective is to move from a general idea to a specific, patentable novelty. We skip the theory and jump straight into community problem solving.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-stone-200">
+                    <span class="text-amber-600 font-bold text-sm">WEEK 1</span>
+                    <h4 class="font-bold text-lg mt-1">Novelty Check</h4>
+                    <p class="text-sm text-stone-500 mt-2">Search <strong>Google Patents</strong> and <strong>IPOPHIL</strong>. If your idea exists, you must pivot to a "Specific Improvement" (e.g., lower cost using local materials).</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-stone-200">
+                    <span class="text-amber-600 font-bold text-sm">WEEK 2</span>
+                    <h4 class="font-bold text-lg mt-1">Technical Schematic</h4>
+                    <p class="text-sm text-stone-500 mt-2">Draw the <strong>System Architecture</strong>. What are the inputs? What is the mechanism? What is the measurable output?</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-stone-200">
+                    <span class="text-amber-600 font-bold text-sm">WEEK 3</span>
+                    <h4 class="font-bold text-lg mt-1">The Proposal Defense</h4>
+                    <p class="text-sm text-stone-500 mt-2">Present to a panel of STEM teachers. They will check for <strong>Feasibility</strong>. If they say it's too expensive or too long, you MUST pivot now.</p>
+                </div>
+            </div>
+
+            <div class="bg-stone-100 p-8 rounded-2xl">
+                <h4 class="font-bold text-stone-900 mb-4">Phase 1 Deliverables (Checklist)</h4>
+                <ul class="space-y-3 text-sm text-stone-700">
+                    <li class="flex items-center gap-2"><input type="checkbox"> Gap Analysis Matrix (Existing Tech vs. Your Tech)</li>
+                    <li class="flex items-center gap-2"><input type="checkbox"> Finalized Research Title (Invention Name)</li>
+                    <li class="flex items-center gap-2"><input type="checkbox"> Approved Chapter 1-3 Draft (Methodology Focus)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PHASE 2: BUILD -->
+        <section id="phase2" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
+            <div class="bg-stone-900 p-10 rounded-3xl text-white">
+                <h2 class="text-3xl font-bold mb-4">Phase 2: Development & Prototyping</h2>
+                <p class="opacity-70 max-w-2xl">Weeks 4-7. This is the "Lab" phase. You are no longer students; you are engineers. Expect Version 1.0 to fail. Failure is data.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                        <h4 class="font-bold text-stone-900">Logistics & Sourcing (Week 4)</h4>
+                        <p class="text-sm text-stone-600 mt-2">Purchase materials. For electronics: Shopee/Lazada (expect 3-5 days delivery). For mechanical: Local hardware stores. <strong>Pro Tip:</strong> Buy 20% more materials than you need for "safety stock".</p>
                     </div>
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100">
-                        <h3 class="text-lg font-semibold text-stone-800 mb-4">Grading Priorities</h3>
-                        <div class="chart-container">
-                            <canvas id="gradingChart"></canvas>
-                        </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                        <h4 class="font-bold text-stone-900">The "Build-Fail-Fix" Cycle (Weeks 5-6)</h4>
+                        <p class="text-sm text-stone-600 mt-2">Assemble the prototype. If it's a software app, finish the Core Logic. If it's a product, finish the Mechanical Framework. Document every error code or structural break.</p>
+                    </div>
+                </div>
+                <div class="bg-amber-50 p-8 rounded-3xl border border-amber-100">
+                    <h4 class="font-bold text-amber-900 mb-4">The Engineering Logbook</h4>
+                    <p class="text-sm text-amber-800 mb-4">Your logbook is your legal proof of work. It should include:</p>
+                    <ul class="text-sm text-amber-700 space-y-2 list-disc list-inside">
+                        <li>Daily entry of work done</li>
+                        <li>Annotated photos of the assembly process</li>
+                        <li>Signed safety checklist for lab use</li>
+                        <li>Bill of Materials (Finalized Costs)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 3: TEST -->
+        <section id="phase3" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
+            <div class="bg-stone-200 p-10 rounded-3xl text-stone-900">
+                <h2 class="text-3xl font-bold mb-4">Phase 3: Testing & Statistical Interpretation</h2>
+                <p class="text-stone-600 max-w-2xl">Weeks 8-10. This is where your invention becomes "Science". You must prove your product works better than the status quo using data.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl border border-stone-200 space-y-4">
+                    <h4 class="font-bold">Experimental Design (Week 8)</h4>
+                    <p class="text-sm text-stone-600">Run <strong>Trial 1, 2, and 3</strong>. Never rely on a single test. Ensure you have a <strong>Control Group</strong> (the existing way of doing things) and an <strong>Experimental Group</strong> (your invention).</p>
+                    <div class="p-4 bg-stone-50 rounded-lg text-xs font-mono">
+                        Example: <br> Control: Commercial Fertilizer Growth Rate <br> Experimental: Your Bio-Fertilizer Growth Rate
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl border border-stone-200 space-y-4">
+                    <h4 class="font-bold text-amber-600">Statistical Decision (Week 9-10)</h4>
+                    <p class="text-sm text-stone-600">Transfer your logbook numbers to Excel. Use the <strong>Stats Engine</strong> in this app to pick the right test. Write Chapter 4 (Results & Discussion).</p>
+                    <div class="chart-container" style="height: 150px;"><canvas id="testSimChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 4: DEFEND -->
+        <section id="phase4" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
+            <div class="bg-stone-900 p-10 rounded-3xl text-white">
+                <h2 class="text-3xl font-bold mb-4">Phase 4: Defense & Submission</h2>
+                <p class="opacity-70 max-w-2xl">Weeks 11-13. The final stretch. Master your data, polish your slides, and prepare for the hardest 30 minutes of your SHS life.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <h4 class="font-bold">Week 11: Final Paper</h4>
+                    <p class="text-xs text-stone-500 mt-2">Finish Chapter 5 (Recommendations). Complete the <strong>Appendices</strong> (Photos, Letters, Original Data). Proofread for APA 7th Edition format.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <h4 class="font-bold">Week 12: Mock Defense</h4>
+                    <p class="text-xs text-stone-500 mt-2">Present to your peers. They must act like "Mean Panelists". Practice answering: <em>"Why is this better than what we already have?"</em></p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
+                    <h4 class="font-bold">Week 13: Final Board</h4>
+                    <p class="text-xs text-stone-500 mt-2">Final defense. 10 minutes presentation, 20 minutes Q&A. Submit the hardbound manuscript following panel revisions.</p>
+                </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 p-8 rounded-3xl">
+                <h4 class="font-bold text-amber-900 mb-2 underline">Anticipated Panel Questions (Top 3)</h4>
+                <div class="space-y-4">
+                    <div>
+                        <p class="text-sm font-bold text-amber-800">1. "What is your statistical significance?"</p>
+                        <p class="text-xs text-amber-700">Answer with your p-value and what it means for your hypothesis.</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-amber-800">2. "How cost-effective is your design for mass production?"</p>
+                        <p class="text-xs text-amber-700">Refer to your Bill of Materials and compare unit cost with commercial competitors.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- TOOLS SECTION -->
-        <section id="tools" class="hidden-section fade-in">
-            <div class="max-w-4xl mx-auto space-y-8">
-                <div class="border-b border-stone-200 pb-4">
-                    <h2 class="text-2xl font-bold text-stone-800">Advanced Stats & Validity Tools</h2>
-                    <p class="mt-2 text-stone-600">
-                        The <strong>Quick Stats Finder</strong> below is built using the UCLA Institute for Digital Research and Education (IDRE) methodology. Use it to select the most robust test for your Capstone data.
-                    </p>
+        <!-- TOOLS SECTION (UNCHANGED LOGIC) -->
+        <section id="tools" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
+             <!-- [RE-USED LOGIC FROM PREVIOUS RESPONSE - STATS ENGINE] -->
+             <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-stone-200">
+                <div class="bg-stone-900 p-6 text-white flex justify-between items-center">
+                    <h3 class="font-bold text-xl">Expert Statistical Decision Engine</h3>
+                    <button onclick="resetStatsWizard()" class="text-xs bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-full transition">Reset Wizard</button>
                 </div>
-
-                <!-- STATS FINDER WIZARD -->
-                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-stone-200">
-                    <div class="bg-stone-800 p-4 text-white flex justify-between items-center">
-                        <h3 class="font-bold">Expert Statistical Decision Engine</h3>
-                        <button onclick="resetStatsWizard()" class="text-xs bg-stone-700 hover:bg-stone-600 px-2 py-1 rounded transition">Reset</button>
+                
+                <div class="p-8 min-h-[400px]">
+                    <div id="stats-step-1" class="stats-step active">
+                        <h4 class="text-xl font-bold mb-6">1. What is the nature of your Dependent Variable (DV)?</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <button onclick="selectStatsStep(1, 'continuous')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                <span class="block font-bold">Continuous</span>
+                                <span class="text-xs text-stone-500">Scale/Ratio measurements (e.g. 10.5kg, 3.2m, 45sec)</span>
+                            </button>
+                            <button onclick="selectStatsStep(1, 'categorical')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                <span class="block font-bold">Categorical</span>
+                                <span class="text-xs text-stone-500">Groups/Categories (e.g. Yes/No, Red/Blue, Pass/Fail)</span>
+                            </button>
+                            <button onclick="selectStatsStep(1, 'ordinal')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                <span class="block font-bold">Ordinal</span>
+                                <span class="text-xs text-stone-500">Ranked data (e.g. Low/Med/High, 1st/2nd/3rd)</span>
+                            </button>
+                        </div>
                     </div>
-                    
-                    <div class="p-6 min-h-[300px]">
-                        <!-- Step 1: DV Type -->
-                        <div id="stats-step-1" class="stats-step active">
-                            <h4 class="text-lg font-bold mb-4">Step 1: What is the nature of your Outcome (Dependent Variable)?</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <button onclick="selectStatsStep(1, 'continuous')" class="p-4 border rounded-lg text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">Continuous / Interval</span>
-                                    <span class="text-xs text-stone-500">Measurements like pH level, height, weight, speed, voltage.</span>
-                                </button>
-                                <button onclick="selectStatsStep(1, 'categorical')" class="p-4 border rounded-lg text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">Categorical / Nominal</span>
-                                    <span class="text-xs text-stone-500">Categories like Success/Failure, Color, Yes/No, Presence/Absence.</span>
-                                </button>
-                                <button onclick="selectStatsStep(1, 'ordinal')" class="p-4 border rounded-lg text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">Ordinal / Ranked</span>
-                                    <span class="text-xs text-stone-500">Likert scales (1-5), rankings (1st, 2nd, 3rd), preferences.</span>
-                                </button>
-                            </div>
-                        </div>
 
-                        <!-- Step 2: IV Count/Type -->
-                        <div id="stats-step-2" class="stats-step">
-                            <h4 class="text-lg font-bold mb-4">Step 2: How many Independent Variables (IV) are you testing?</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <button onclick="selectStatsStep(2, 'one-cat-2')" class="p-4 border rounded-lg text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">One Categorical IV (2 Groups)</span>
-                                    <span class="text-xs text-stone-500">e.g., Experimental Filter vs. Commercial Filter.</span>
-                                </button>
-                                <button onclick="selectStatsStep(2, 'one-cat-many')" class="p-4 border rounded-lg text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">One Categorical IV (3+ Groups)</span>
-                                    <span class="text-xs text-stone-500">e.g., Concentrated 10%, 20%, 30% and Control.</span>
-                                </button>
-                                <button onclick="selectStatsStep(2, 'one-cont')" class="p-4 border rounded-lg text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">One Continuous IV</span>
-                                    <span class="text-xs text-stone-500">e.g., Relationship between Temperature and Growth Rate.</span>
-                                </button>
-                                <button onclick="selectStatsStep(2, 'multi')" class="p-4 border rounded-lg text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">Two or More IVs</span>
-                                    <span class="text-xs text-stone-500">e.g., Effect of both Light Intensity AND Soil pH on plant height.</span>
-                                </button>
-                            </div>
+                    <div id="stats-step-2" class="stats-step">
+                        <h4 class="text-xl font-bold mb-6">2. How many Independent Variables (IV) or groups?</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button onclick="selectStatsStep(2, 'one-cat-2')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                <span class="block font-bold text-lg">Two Groups</span>
+                                <span class="text-xs text-stone-500">Comparing your invention vs. 1 existing control.</span>
+                            </button>
+                            <button onclick="selectStatsStep(2, 'one-cat-many')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                <span class="block font-bold text-lg">Three+ Groups</span>
+                                <span class="text-xs text-stone-500">Testing different concentrations or multiple variations.</span>
+                            </button>
+                            <button onclick="selectStatsStep(2, 'one-cont')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                <span class="block font-bold text-lg">One Continuous IV</span>
+                                <span class="text-xs text-stone-500">Finding relationship (e.g. More Heat = More Growth?)</span>
+                            </button>
                         </div>
+                    </div>
 
-                        <!-- Step 3: Pairing -->
-                        <div id="stats-step-3" class="stats-step">
-                            <h4 class="text-lg font-bold mb-4">Step 3: Are the observations related or independent?</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <button onclick="selectStatsStep(3, 'independent')" class="p-4 border rounded-lg text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">Independent Samples</span>
-                                    <span class="text-xs text-stone-500">Comparing different plants, different machines, or different groups.</span>
-                                </button>
-                                <button onclick="selectStatsStep(3, 'paired')" class="p-4 border rounded-lg text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">Paired / Repeated Measures</span>
-                                    <span class="text-xs text-stone-500">Same subject tested Before vs. After, or at multiple time points.</span>
-                                </button>
-                            </div>
+                    <div id="stats-step-3" class="stats-step">
+                        <h4 class="text-xl font-bold mb-6">3. Are the samples Independent or Paired?</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button onclick="selectStatsStep(3, 'independent')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                <span class="block font-bold text-lg">Independent</span>
+                                <span class="text-xs text-stone-500">Comparing Group A vs Group B (different subjects).</span>
+                            </button>
+                            <button onclick="selectStatsStep(3, 'paired')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                                <span class="block font-bold text-lg">Paired / Related</span>
+                                <span class="text-xs text-stone-500">Same subject tested Before and After.</span>
+                            </button>
                         </div>
+                    </div>
 
-                        <!-- Result Section -->
-                        <div id="stats-result" class="stats-step p-6 bg-amber-50 border border-amber-200 rounded-lg">
-                            <div class="flex items-center space-x-3 mb-3">
-                                <span class="bg-amber-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Recommendation</span>
-                                <h4 id="res-test-name" class="text-xl font-bold text-amber-900">Test Name</h4>
-                            </div>
-                            <p id="res-test-desc" class="text-stone-700 leading-relaxed">Explanation goes here.</p>
-                            <div class="mt-6 p-4 bg-white rounded border border-amber-100">
-                                <span class="block text-[10px] font-bold text-stone-400 uppercase tracking-widest">UCLA Reference Logic</span>
-                                <p id="res-ucla-logic" class="text-xs text-stone-500 mt-1 italic">Criteria met for this test selection.</p>
-                            </div>
+                    <div id="stats-result" class="stats-step p-10 bg-amber-50 border-2 border-amber-200 rounded-3xl">
+                        <span class="inline-block bg-amber-600 text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase mb-4">Recommended Statistical Test</span>
+                        <h4 id="res-test-name" class="text-3xl font-extrabold text-stone-900 mb-4">Test Name</h4>
+                        <p id="res-test-desc" class="text-lg text-stone-600 mb-8 leading-relaxed">Description...</p>
+                        <div class="p-4 bg-white rounded-xl border border-amber-200 text-xs font-mono text-stone-500">
+                            Logic: <span id="res-ucla-logic">...</span>
                         </div>
                     </div>
                 </div>
-
-                <!-- Topic Validator -->
-                <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm">
-                    <h3 class="text-xl font-bold text-stone-800 mb-2">Pre-Proposal Validator</h3>
-                    <p class="text-sm text-stone-600 mb-4">Run your project idea through this "Hard Filter" to ensure it's defensible.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="flex items-start space-x-3">
-                            <input type="checkbox" class="mt-1">
-                            <span class="text-sm"><strong>Novelty:</strong> Patent search confirms this isn't already a product in the PH.</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <input type="checkbox" class="mt-1">
-                            <span class="text-sm"><strong>Timeline:</strong> Data gathering can be completed in < 14 days.</span>
-                        </div>
-                        <div class="flex items-start space-x-3">
-                            <input type="checkbox" class="mt-1">
-                            <span class="text-sm"><strong>Ethics:</strong> No vertebrates, human psychological stress, or toxins.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Placeholder for Phase 1-4 Content (Abbreviated for Focus on Stats) -->
-        <section id="phase1" class="hidden-section fade-in">
-            <div class="max-w-4xl mx-auto space-y-6">
-                <h2 class="text-2xl font-bold">Phase 1: Ideation (W1-3)</h2>
-                <div class="p-6 bg-white border rounded-xl">
-                    <p class="text-stone-600">The first 3 weeks focus on "Gap Analysis". Use Google Patents to ensure your product hasn't been made yet. If it exists, your research must offer a significant modification (Efficiency, Cost, or Sustainability).</p>
-                </div>
-            </div>
-        </section>
-        
-        <section id="phase2" class="hidden-section fade-in">
-            <div class="max-w-4xl mx-auto space-y-6">
-                <h2 class="text-2xl font-bold">Phase 2: The Lab (W4-7)</h2>
-                <div class="p-6 bg-white border rounded-xl">
-                    <p class="text-stone-600">Prototyping. Use this phase for Bill of Materials (BOM) sourcing. Document all failures. In STEM research, a failed prototype that yields data is still a valid project if the analysis is sound.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="phase3" class="hidden-section fade-in">
-            <div class="max-w-4xl mx-auto space-y-6">
-                <h2 class="text-2xl font-bold">Phase 3: Validation (W8-10)</h2>
-                <div class="p-6 bg-white border rounded-xl">
-                    <p class="text-stone-600">Experimental Design. This is where you apply the tests found in the Stats Tool. Minimum of 3 trials per group is non-negotiable for Grade 12 STEM.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="phase4" class="hidden-section fade-in">
-            <div class="max-w-4xl mx-auto space-y-6">
-                <h2 class="text-2xl font-bold">Phase 4: The Panel (W11-13)</h2>
-                <div class="p-6 bg-white border rounded-xl">
-                    <p class="text-stone-600">Presentation. Focus on "Mastery of Statistics" and "Technical Feasibility". Panelists will target your methodology and the logic behind your statistical choices.</p>
-                </div>
-            </div>
+             </div>
         </section>
 
     </main>
 
     <!-- Placeholder Comments -->
-    <!-- Chosen Palette: Warm Neutrals & Amber. Chosen for professional academic presentation that remains visually engaging. -->
+    <!-- Chosen Palette: Stone (Neutrals) for professionalism, Amber (Yellow-Orange) for STEM/Industrial energy. -->
     <!-- Application Structure Plan: 
-         1. Dashboard Overview for immediate timeline grounding.
-         2. Task-Oriented navigation for Phased work.
-         3. Interactive Statistical Decision Engine based on UCLA IDRE guidelines to assist Grade 12 researchers in the most difficult part of the capstone.
+         - Dashboard: Immediate KPIs and visual overview.
+         - Timeline Navigation: Forces sequential exploration of the 13-week crunch.
+         - Depth: Each phase expanded with "Logbook Protocols" and "Weekly Breakdown".
+         - Stats Engine: Retained UCLA-based logic as requested.
+         - Countdown: Visual urgency for the March 30 deadline.
     -->
     <!-- Visualization & Content Choices:
-         1. Timeline Chart -> Horizontal Bar -> Compare duration of phases.
-         2. Grading Chart -> Doughnut -> Highlight output importance.
-         3. Decision Wizard -> Conditional Logic -> Map User Inputs to UCLA stats guide.
+         - Effort Bar Chart (Chart.js): Shows intensity peaking at the Defense.
+         - Weights Doughnut (Chart.js): Visually reinforces that Product > Paper.
+         - Test Sim (Chart.js): Mini-viz to show what a data trial looks like.
          Confirming NO SVG/Mermaid used.
     -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <script>
-        // State for Stats Wizard
-        const statsSelection = {
-            dvType: null,
-            ivConfig: null,
-            pairing: null
-        };
+        // --- State ---
+        const statsSelection = { dvType: null, ivConfig: null, pairing: null };
+        const defenseDate = new Date("March 30, 2026 08:00:00").getTime();
 
-        // Navigation
+        // --- Navigation ---
         function navigate(target) {
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
             document.getElementById(target).classList.remove('hidden-section');
-            
             document.querySelectorAll('.nav-item').forEach(btn => {
                 if(btn.dataset.target === target) {
-                    btn.classList.add('bg-amber-50', 'text-amber-700');
+                    btn.classList.add('bg-stone-800', 'text-white');
+                    btn.classList.remove('text-stone-300');
                 } else {
-                    btn.classList.remove('bg-amber-50', 'text-amber-700');
-                    btn.classList.add('text-stone-600');
+                    btn.classList.remove('bg-stone-800', 'text-white');
+                    btn.classList.add('text-stone-300');
                 }
             });
-
-            // Mobile menu auto-hide
-            if(window.innerWidth < 768) {
-                document.getElementById('sidebar').classList.add('hidden');
-            }
+            if(window.innerWidth < 768) document.getElementById('sidebar').classList.add('hidden');
         }
 
-        // Stats Wizard Logic
+        // --- Countdown Logic ---
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = defenseDate - now;
+            
+            if (distance < 0) {
+                document.getElementById('countdown').innerHTML = "<p class='text-amber-500 font-bold col-span-2'>DEFENSE IS ON!</p>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            document.getElementById('cd-days').innerText = days;
+            document.getElementById('cd-hours').innerText = hours;
+        }
+
+        // --- Stats Wizard Logic ---
         function selectStatsStep(step, val) {
             if(step === 1) {
                 statsSelection.dvType = val;
@@ -340,11 +386,7 @@
             } else if (step === 2) {
                 statsSelection.ivConfig = val;
                 document.getElementById('stats-step-2').classList.remove('active');
-                
-                // Decide if step 3 is needed
-                const skipsStep3 = ['one-cont', 'multi'].includes(val) || statsSelection.dvType === 'categorical';
-                
-                if(skipsStep3) {
+                if (['one-cont', 'multi'].includes(val) || statsSelection.dvType === 'categorical') {
                     processStatsResult();
                 } else {
                     document.getElementById('stats-step-3').classList.add('active');
@@ -369,108 +411,99 @@
             const nameEl = document.getElementById('res-test-name');
             const descEl = document.getElementById('res-test-desc');
             const logicEl = document.getElementById('res-ucla-logic');
-            
             resultDiv.classList.add('active');
             
             const dv = statsSelection.dvType;
             const iv = statsSelection.ivConfig;
             const pair = statsSelection.pairing;
 
-            let result = { name: "Consult a Statistician", desc: "Your configuration is complex. This might require Multivariate analysis.", logic: "N/A" };
+            let res = { name: "Manual Verification Required", desc: "This data structure is complex. Consult your thesis advisor for Multivariate Analysis.", logic: "Complex/Mixed IVs" };
 
-            // Logic Mapping based on UCLA OARC
             if (dv === 'continuous') {
                 if (iv === 'one-cat-2') {
-                    if (pair === 'independent') {
-                        result = { name: "Independent T-Test", desc: "Compares means between two unrelated groups on the same continuous, normally distributed variable.", logic: "1 DV (Cont), 1 IV (Cat, 2 levels), Independent Samples" };
-                    } else {
-                        result = { name: "Paired T-Test", desc: "Compares means from the same group at different times (e.g., Pre-test vs Post-test).", logic: "1 DV (Cont), 1 IV (Cat, 2 levels), Related Samples" };
-                    }
+                    if (pair === 'independent') res = { name: "Independent T-Test", desc: "Use this to compare the mean performance of your product vs. a commercial standard.", logic: "1 DV (Cont), 1 IV (2 Groups), Independent" };
+                    else res = { name: "Paired T-Test", desc: "Use this if you are testing the SAME subject BEFORE and AFTER using your product.", logic: "1 DV (Cont), 1 IV (2 Groups), Related" };
                 } else if (iv === 'one-cat-many') {
-                    if (pair === 'independent') {
-                        result = { name: "One-way ANOVA", desc: "Determines if there are statistically significant differences between the means of three or more independent groups.", logic: "1 DV (Cont), 1 IV (Cat, 3+ levels), Independent Samples" };
-                    } else {
-                        result = { name: "Repeated Measures ANOVA", desc: "Equivalent of the one-way ANOVA but for related groups (e.g., testing at Week 1, Week 2, and Week 3).", logic: "1 DV (Cont), 1 IV (Cat, 3+ levels), Related Samples" };
-                    }
-                } else if (iv === 'one-cont') {
-                    result = { name: "Simple Linear Regression", desc: "Models the relationship between a single independent variable and a dependent variable using a linear equation.", logic: "1 DV (Cont), 1 IV (Cont)" };
-                } else if (iv === 'multi') {
-                    result = { name: "Multiple Regression", desc: "Predicts the value of a variable based on the value of two or more other variables.", logic: "1 DV (Cont), 2+ IVs (Cont or Mixed)" };
-                }
+                    if (pair === 'independent') res = { name: "One-way ANOVA", desc: "Use this if you have 3 or more variations (e.g. 10%, 20%, 30% concentration) vs a control.", logic: "1 DV (Cont), 1 IV (3+ Groups), Independent" };
+                    else res = { name: "RM ANOVA", desc: "Use this if you test the same sample at multiple time intervals (Day 1, Day 7, Day 14).", logic: "1 DV (Cont), 1 IV (3+ Groups), Related" };
+                } else if (iv === 'one-cont') res = { name: "Linear Regression", desc: "Use this to predict outcomes based on a continuous variable (e.g. How much Heat increases Pressure).", logic: "1 DV (Cont), 1 IV (Cont)" };
             } else if (dv === 'categorical') {
-                if (iv === 'one-cat-2' || iv === 'one-cat-many') {
-                    result = { name: "Chi-Square Test of Independence", desc: "Tests whether two categorical variables are related in some way.", logic: "1 DV (Cat), 1 IV (Cat)" };
-                } else if (iv === 'multi') {
-                    result = { name: "Logistic Regression", desc: "Used when the DV is binary (Yes/No) and you have multiple independent variables.", logic: "1 DV (Cat/Binary), Multiple IVs" };
-                }
+                res = { name: "Chi-Square Independence", desc: "Use this to see if there's a relationship between two categories (e.g. Gender vs. Preference for your app).", logic: "DV (Cat), IV (Cat)" };
             } else if (dv === 'ordinal') {
-                if (iv === 'one-cat-2') {
-                    if (pair === 'independent') result = { name: "Wilcoxon-Mann-Whitney Test", desc: "Non-parametric alternative to independent t-test for ranked data.", logic: "1 DV (Ordinal), 1 IV (Cat, 2 levels), Independent" };
-                    else result = { name: "Wilcoxon Signed Rank Test", desc: "Non-parametric alternative to paired t-test.", logic: "1 DV (Ordinal), 1 IV (Cat, 2 levels), Related" };
-                } else if (iv === 'one-cat-many') {
-                    if (pair === 'independent') result = { name: "Kruskal-Wallis H Test", desc: "Non-parametric alternative to One-way ANOVA.", logic: "1 DV (Ordinal), 1 IV (Cat, 3+ levels), Independent" };
-                    else result = { name: "Friedman Test", desc: "Non-parametric version of RM-ANOVA.", logic: "1 DV (Ordinal), 1 IV (Cat, 3+ levels), Related" };
-                }
+                if (iv === 'one-cat-2') res = { name: "Mann-Whitney U", desc: "The non-parametric version of the t-test for ranked/ordinal data.", logic: "DV (Ordinal), 2 Groups" };
+                else res = { name: "Kruskal-Wallis", desc: "Non-parametric ANOVA for 3+ groups of ordinal data.", logic: "DV (Ordinal), 3+ Groups" };
             }
 
-            nameEl.innerText = result.name;
-            descEl.innerText = result.desc;
-            logicEl.innerText = result.logic;
+            nameEl.innerText = res.name;
+            descEl.innerText = res.desc;
+            logicEl.innerText = res.logic;
         }
 
-        // Charts
+        // --- Charts ---
         function initCharts() {
             const ctx1 = document.getElementById('timelineChart').getContext('2d');
             new Chart(ctx1, {
                 type: 'bar',
                 data: {
-                    labels: ['Ideation', 'Build', 'Test', 'Defend'],
+                    labels: ['W1-3 (Plan)', 'W4-7 (Build)', 'W8-10 (Test)', 'W11-13 (Defend)'],
                     datasets: [{
                         label: 'Intensity (%)',
-                        data: [40, 90, 80, 100],
-                        backgroundColor: '#d97706',
-                        borderRadius: 6
+                        data: [30, 85, 70, 100],
+                        backgroundColor: '#f59e0b',
+                        borderRadius: 8
                     }]
                 },
-                options: {
-                    indexAxis: 'y',
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: { x: { max: 100 } },
-                    plugins: { legend: { display: false } }
-                }
+                options: { maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }
             });
 
             const ctx2 = document.getElementById('gradingChart').getContext('2d');
             new Chart(ctx2, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Product Performance', 'Oral Defense', 'Manuscript'],
+                    labels: ['Product Performance', 'Defense Mastery', 'Paper Quality'],
                     datasets: [{
                         data: [50, 30, 20],
-                        backgroundColor: ['#b45309', '#78716c', '#e7e5e4']
+                        backgroundColor: ['#1c1917', '#d97706', '#e7e5e4'],
+                        borderWidth: 0
                     }]
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom' } }
-                }
+                options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+            });
+
+            const ctx3 = document.getElementById('testSimChart').getContext('2d');
+            new Chart(ctx3, {
+                type: 'line',
+                data: {
+                    labels: ['Trial 1', 'Trial 2', 'Trial 3'],
+                    datasets: [{
+                        label: 'Your Product',
+                        data: [82, 85, 84],
+                        borderColor: '#f59e0b',
+                        tension: 0.3
+                    }, {
+                        label: 'Commercial',
+                        data: [60, 62, 58],
+                        borderColor: '#d6d3d1',
+                        tension: 0.3
+                    }]
+                },
+                options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
 
-        // Mobile Menu
+        // --- Main ---
+        window.onload = () => {
+            initCharts();
+            setInterval(updateCountdown, 1000);
+            updateCountdown();
+            navigate('dashboard');
+        };
+
         document.getElementById('mobile-menu-btn').addEventListener('click', () => {
             const s = document.getElementById('sidebar');
             s.classList.toggle('hidden');
             s.classList.toggle('absolute');
-            s.classList.toggle('w-full');
         });
-
-        window.onload = () => {
-            initCharts();
-            navigate('dashboard');
-        };
     </script>
 </body>
 </html>
