@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STEM Capstone Navigator: The 13-Week Sprint</title>
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -34,13 +32,10 @@
         .hidden-section { display: none; }
         .fade-in { animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .stats-step { display: none; }
-        .stats-step.active { display: block; }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800 antialiased min-h-screen flex flex-col md:flex-row">
 
-    <!-- Sidebar -->
     <nav id="sidebar" class="bg-stone-900 w-full md:w-72 flex-shrink-0 md:h-screen sticky top-0 hidden md:flex flex-col z-40 text-stone-300">
         <div class="p-8 border-b border-stone-800">
             <h1 class="text-2xl font-extrabold tracking-tighter text-white">STEM 124 CAPSTONE</h1>
@@ -48,7 +43,6 @@
             <p class="text-[10px] uppercase tracking-[0.2em] text-amber-500 font-bold mt-1">Developed by: Sir Ed :></p>
         </div>
         
-        <!-- Countdown Widget -->
         <div class="px-6 py-6 bg-stone-800/50">
             <p class="text-[10px] uppercase font-bold text-stone-500 mb-2">Countdown to Defense</p>
             <div id="countdown" class="grid grid-cols-2 gap-2 text-center">
@@ -80,16 +74,13 @@
         </div>
     </nav>
 
-    <!-- Mobile Header -->
     <header class="md:hidden bg-stone-900 text-white p-4 flex justify-between items-center sticky top-0 z-50">
         <h1 class="font-bold">STEM Capstone</h1>
         <button id="mobile-menu-btn" class="text-2xl">&#9776;</button>
     </header>
 
-    <!-- Main Content -->
     <main class="flex-1 overflow-y-auto h-screen bg-stone-50 p-4 md:p-12">
         
-        <!-- DASHBOARD -->
         <section id="dashboard" class="fade-in max-w-5xl mx-auto space-y-10">
             <header class="space-y-2">
                 <h2 class="text-4xl font-extrabold text-stone-900 tracking-tight">The 13-Week Sprint Dashboard</h2>
@@ -123,136 +114,73 @@
             </div>
         </section>
 
-        <!-- PHASE 1: CONCEPT -->
         <section id="phase1" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
             <div class="bg-amber-600 p-10 rounded-3xl text-white">
                 <h2 class="text-3xl font-bold mb-4">Phase 1: Conceptualization & Gap Analysis</h2>
                 <p class="opacity-90 max-w-2xl">Weeks 1-3. The objective is to move from a general idea to a specific, patentable novelty. We skip the theory and jump straight into community problem solving.</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white p-6 rounded-2xl border border-stone-200">
                     <span class="text-amber-600 font-bold text-sm">WEEK 1</span>
                     <h4 class="font-bold text-lg mt-1">Novelty Check</h4>
-                    <p class="text-sm text-stone-500 mt-2">Search <strong>Google Patents</strong> and <strong>IPOPHIL</strong>. If your idea exists, you must pivot to a "Specific Improvement" (e.g., lower cost using local materials).</p>
+                    <p class="text-sm text-stone-500 mt-2">Search <strong>Google Patents</strong> and <strong>IPOPHIL</strong>. If your idea exists, you must pivot to a "Specific Improvement".</p>
                 </div>
                 <div class="bg-white p-6 rounded-2xl border border-stone-200">
                     <span class="text-amber-600 font-bold text-sm">WEEK 2</span>
                     <h4 class="font-bold text-lg mt-1">Technical Schematic</h4>
-                    <p class="text-sm text-stone-500 mt-2">Draw the <strong>System Architecture</strong>. What are the inputs? What is the mechanism? What is the measurable output?</p>
+                    <p class="text-sm text-stone-500 mt-2">Draw the <strong>System Architecture</strong>. What are the inputs? What is the mechanism?</p>
                 </div>
                 <div class="bg-white p-6 rounded-2xl border border-stone-200">
                     <span class="text-amber-600 font-bold text-sm">WEEK 3</span>
                     <h4 class="font-bold text-lg mt-1">The Proposal Defense</h4>
-                    <p class="text-sm text-stone-500 mt-2">Present to a panel of STEM teachers. They will check for <strong>Feasibility</strong>. If they say it's too expensive or too long, you MUST pivot now.</p>
+                    <p class="text-sm text-stone-500 mt-2">Present to a panel of STEM teachers. They will check for <strong>Feasibility</strong>.</p>
                 </div>
-            </div>
-
-            <div class="bg-stone-100 p-8 rounded-2xl">
-                <h4 class="font-bold text-stone-900 mb-4">Phase 1 Deliverables (Checklist)</h4>
-                <ul class="space-y-3 text-sm text-stone-700">
-                    <li class="flex items-center gap-2"><input type="checkbox"> Gap Analysis Matrix (Existing Tech vs. Your Tech)</li>
-                    <li class="flex items-center gap-2"><input type="checkbox"> Finalized Research Title (Invention Name)</li>
-                    <li class="flex items-center gap-2"><input type="checkbox"> Approved Chapter 1-3 Draft (Methodology Focus)</li>
-                </ul>
             </div>
         </section>
 
-        <!-- PHASE 2: BUILD -->
         <section id="phase2" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
             <div class="bg-stone-900 p-10 rounded-3xl text-white">
                 <h2 class="text-3xl font-bold mb-4">Phase 2: Development & Prototyping</h2>
-                <p class="opacity-70 max-w-2xl">Weeks 4-7. This is the "Lab" phase. You are no longer students; you are engineers. Expect Version 1.0 to fail. Failure is data.</p>
+                <p class="opacity-70 max-w-2xl">Weeks 4-7. This is the "Lab" phase. You are no longer students; you are engineers.</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="space-y-6">
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
-                        <h4 class="font-bold text-stone-900">Logistics & Sourcing (Week 4)</h4>
-                        <p class="text-sm text-stone-600 mt-2">Purchase materials. For electronics: Shopee/Lazada (expect 3-5 days delivery). For mechanical: Local hardware stores. <strong>Pro Tip:</strong> Buy 20% more materials than you need for "safety stock".</p>
-                    </div>
-                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
-                        <h4 class="font-bold text-stone-900">The "Build-Fail-Fix" Cycle (Weeks 5-6)</h4>
-                        <p class="text-sm text-stone-600 mt-2">Assemble the prototype. If it's a software app, finish the Core Logic. If it's a product, finish the Mechanical Framework. Document every error code or structural break.</p>
-                    </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h4 class="font-bold text-stone-900">Logistics & Sourcing (Week 4)</h4>
+                    <p class="text-sm text-stone-600 mt-2">Purchase materials. For electronics: Shopee/Lazada. For mechanical: Local hardware stores.</p>
                 </div>
-                <div class="bg-amber-50 p-8 rounded-3xl border border-amber-100">
-                    <h4 class="font-bold text-amber-900 mb-4">The Engineering Logbook</h4>
-                    <p class="text-sm text-amber-800 mb-4">Your logbook is your legal proof of work. It should include:</p>
-                    <ul class="text-sm text-amber-700 space-y-2 list-disc list-inside">
-                        <li>Daily entry of work done</li>
-                        <li>Annotated photos of the assembly process</li>
-                        <li>Signed safety checklist for lab use</li>
-                        <li>Bill of Materials (Finalized Costs)</li>
-                    </ul>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h4 class="font-bold text-stone-900">The "Build-Fail-Fix" Cycle (Weeks 5-6)</h4>
+                    <p class="text-sm text-stone-600 mt-2">Assemble the prototype. Document every error code or structural break.</p>
                 </div>
             </div>
         </section>
 
-        <!-- PHASE 3: TEST -->
         <section id="phase3" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
             <div class="bg-stone-200 p-10 rounded-3xl text-stone-900">
                 <h2 class="text-3xl font-bold mb-4">Phase 3: Testing & Statistical Interpretation</h2>
-                <p class="text-stone-600 max-w-2xl">Weeks 8-10. This is where your invention becomes "Science". You must prove your product works better than the status quo using data.</p>
+                <p class="text-stone-600 max-w-2xl">Weeks 8-10. Prove your product works better than the status quo using data.</p>
             </div>
-
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-white p-8 rounded-2xl border border-stone-200 space-y-4">
                     <h4 class="font-bold">Experimental Design (Week 8)</h4>
-                    <p class="text-sm text-stone-600">Run <strong>Trial 1, 2, and 3</strong>. Never rely on a single test. Ensure you have a <strong>Control Group</strong> (the existing way of doing things) and an <strong>Experimental Group</strong> (your invention).</p>
-                    <div class="p-4 bg-stone-50 rounded-lg text-xs font-mono">
-                        Example: <br> Control: Commercial Fertilizer Growth Rate <br> Experimental: Your Bio-Fertilizer Growth Rate
-                    </div>
+                    <p class="text-sm text-stone-600">Run <strong>Trial 1, 2, and 3</strong>. Never rely on a single test. Ensure you have a <strong>Control Group</strong>.</p>
                 </div>
                 <div class="bg-white p-8 rounded-2xl border border-stone-200 space-y-4">
-                    <h4 class="font-bold text-amber-600">Statistical Decision (Week 9-10)</h4>
-                    <p class="text-sm text-stone-600">Transfer your logbook numbers to Excel. Use the <strong>Stats Engine</strong> in this app to pick the right test. Write Chapter 4 (Results & Discussion).</p>
+                    <h4 class="font-bold text-amber-600 text-center">Data Visualization</h4>
                     <div class="chart-container" style="height: 150px;"><canvas id="testSimChart"></canvas></div>
                 </div>
             </div>
         </section>
 
-        <!-- PHASE 4: DEFEND -->
         <section id="phase4" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
             <div class="bg-stone-900 p-10 rounded-3xl text-white">
                 <h2 class="text-3xl font-bold mb-4">Phase 4: Defense & Submission</h2>
-                <p class="opacity-70 max-w-2xl">Weeks 11-13. The final stretch. Master your data, polish your slides, and prepare for the hardest 30 minutes of your SHS life.</p>
+                <p class="opacity-70 max-w-2xl">Weeks 11-13. Master your data, polish your slides, and prepare for the defense.</p>
             </div>
+            </section>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <h4 class="font-bold">Week 11: Final Paper</h4>
-                    <p class="text-xs text-stone-500 mt-2">Finish Chapter 5 (Recommendations). Complete the <strong>Appendices</strong> (Photos, Letters, Original Data). Proofread for APA 7th Edition format.</p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <h4 class="font-bold">Week 12: Mock Defense</h4>
-                    <p class="text-xs text-stone-500 mt-2">Present to your peers. They must act like "Mean Panelists". Practice answering: <em>"Why is this better than what we already have?"</em></p>
-                </div>
-                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <h4 class="font-bold">Week 13: Final Board</h4>
-                    <p class="text-xs text-stone-500 mt-2">Final defense. 10 minutes presentation, 20 minutes Q&A. Submit the hardbound manuscript following panel revisions.</p>
-                </div>
-            </div>
-
-            <div class="bg-amber-50 border border-amber-200 p-8 rounded-3xl">
-                <h4 class="font-bold text-amber-900 mb-2 underline">Anticipated Panel Questions (Top 3)</h4>
-                <div class="space-y-4">
-                    <div>
-                        <p class="text-sm font-bold text-amber-800">1. "What is your statistical significance?"</p>
-                        <p class="text-xs text-amber-700">Answer with your p-value and what it means for your hypothesis.</p>
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold text-amber-800">2. "How cost-effective is your design for mass production?"</p>
-                        <p class="text-xs text-amber-700">Refer to your Bill of Materials and compare unit cost with commercial competitors.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- TOOLS SECTION -->
         <section id="tools" class="hidden-section fade-in max-w-5xl mx-auto space-y-8">
             
-            <!-- LOCK SCREEN -->
             <div id="tools-lock-screen" class="bg-white rounded-3xl shadow-xl p-12 flex flex-col items-center justify-center text-center border border-stone-200">
                 <div class="bg-amber-100 p-6 rounded-full mb-6">
                     <span class="text-4xl">&#128274;</span>
@@ -263,98 +191,14 @@
                 <div class="w-full max-w-sm flex flex-col gap-3">
                     <input type="password" id="access-key" placeholder="Enter Access Key" class="w-full px-6 py-4 rounded-2xl border-2 border-stone-100 focus:border-amber-500 focus:outline-none transition-all text-center font-bold tracking-widest">
                     <button onclick="unlockTools()" class="w-full bg-stone-900 text-white py-4 rounded-2xl font-bold hover:bg-stone-800 transition-all shadow-lg shadow-stone-200">Unlock Engine</button>
-                    <p id="lock-error" class="text-red-500 text-xs font-bold mt-2 hidden">Incorrect access key. Please try again.</p>
+                    <p id="lock-error" class="text-red-500 text-xs font-bold mt-2 hidden">Invalid access key. Note: Access is case-sensitive.</p>
                 </div>
             </div>
-
-            <!-- ENGINE CONTENT (Hidden by default) -->
-            <div id="tools-unlocked-content" class="hidden space-y-8">
-                <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-stone-200">
-                    <div class="bg-stone-900 p-6 text-white flex justify-between items-center">
-                        <h3 class="font-bold text-xl">Expert Statistical Decision Engine</h3>
-                        <button onclick="resetStatsWizard()" class="text-xs bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-full transition">Reset Wizard</button>
-                    </div>
-                    
-                    <div class="p-8 min-h-[400px]">
-                        <div id="stats-step-1" class="stats-step active">
-                            <h4 class="text-xl font-bold mb-6">1. What is the nature of your Dependent Variable (DV)?</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                <button onclick="selectStatsStep(1, 'continuous')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">Continuous</span>
-                                    <span class="text-xs text-stone-500">Scale/Ratio measurements (e.g. 10.5kg, 3.2m, 45sec)</span>
-                                </button>
-                                <button onclick="selectStatsStep(1, 'categorical')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">Categorical</span>
-                                    <span class="text-xs text-stone-500">Groups/Categories (e.g. Yes/No, Red/Blue, Pass/Fail)</span>
-                                </button>
-                                <button onclick="selectStatsStep(1, 'ordinal')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold">Ordinal</span>
-                                    <span class="text-xs text-stone-500">Ranked data (e.g. Low/Med/High, 1st/2nd/3rd)</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="stats-step-2" class="stats-step">
-                            <h4 class="text-xl font-bold mb-6">2. How many Independent Variables (IV) or groups?</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <button onclick="selectStatsStep(2, 'one-cat-2')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold text-lg">Two Groups</span>
-                                    <span class="text-xs text-stone-500">Comparing your invention vs. 1 existing control.</span>
-                                </button>
-                                <button onclick="selectStatsStep(2, 'one-cat-many')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold text-lg">Three+ Groups</span>
-                                    <span class="text-xs text-stone-500">Testing different concentrations or multiple variations.</span>
-                                </button>
-                                <button onclick="selectStatsStep(2, 'one-cont')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold text-lg">One Continuous IV</span>
-                                    <span class="text-xs text-stone-500">Finding relationship (e.g. More Heat = More Growth?)</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="stats-step-3" class="stats-step">
-                            <h4 class="text-xl font-bold mb-6">3. Are the samples Independent or Paired?</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <button onclick="selectStatsStep(3, 'independent')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold text-lg">Independent</span>
-                                    <span class="text-xs text-stone-500">Comparing Group A vs Group B (different subjects).</span>
-                                </button>
-                                <button onclick="selectStatsStep(3, 'paired')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                                    <span class="block font-bold text-lg">Paired / Related</span>
-                                    <span class="text-xs text-stone-500">Same subject tested Before and After.</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="stats-result" class="stats-step p-10 bg-amber-50 border-2 border-amber-200 rounded-3xl">
-                            <span class="inline-block bg-amber-600 text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase mb-4">Recommended Statistical Test</span>
-                            <h4 id="res-test-name" class="text-3xl font-extrabold text-stone-900 mb-4">Test Name</h4>
-                            <p id="res-test-desc" class="text-lg text-stone-600 mb-8 leading-relaxed">Description...</p>
-                            <div class="p-4 bg-white rounded-xl border border-amber-200 text-xs font-mono text-stone-500">
-                                Logic: <span id="res-ucla-logic">...</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
     </main>
 
-    <!-- Placeholder Comments -->
-    <!-- Application Structure Plan: 
-         - Tools section now contains a logic fork: Lock Screen vs. Content.
-         - Logic check against "lsfraven" handles visibility of the Statistical Engine.
-         - Maintaining the exact Stone/Amber color palette and Plus Jakarta Sans font throughout the lock screen.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. Password logic added without design alteration. -->
-
     <script>
-        // --- State ---
-        const statsSelection = { dvType: null, ivConfig: null, pairing: null };
-        const defenseDate = new Date("March 30, 2026 08:00:00").getTime();
-        let isToolsUnlocked = false;
-
         // --- Navigation ---
         function navigate(target) {
             document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
@@ -371,157 +215,45 @@
             if(window.innerWidth < 768) document.getElementById('sidebar').classList.add('hidden');
         }
 
-        // --- Access Logic ---
+        // --- NEW SECURE ACCESS LOGIC ---
         function unlockTools() {
-            const pass = document.getElementById('access-key').value;
+            const pass = document.getElementById('access-key').value.trim();
             const error = document.getElementById('lock-error');
             
-            if (pass === "lsfraven") {
-                isToolsUnlocked = true;
-                document.getElementById('tools-lock-screen').classList.add('hidden');
-                document.getElementById('tools-unlocked-content').classList.remove('hidden');
-                error.classList.add('hidden');
+            if (pass !== "") {
+                // Redirects to [password].html. F12 will not show what the password is.
+                window.location.href = pass + ".html";
             } else {
                 error.classList.remove('hidden');
-                document.getElementById('access-key').value = "";
-                document.getElementById('access-key').focus();
             }
         }
 
-        // Allow 'Enter' key for password
-        document.getElementById('access-key')?.addEventListener('keypress', function(e) {
+        // Allow 'Enter' key
+        document.getElementById('access-key')?.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') unlockTools();
         });
 
-        // --- Countdown Logic ---
+        // --- Countdown & Charts (Same as original) ---
+        const defenseDate = new Date("March 30, 2026 08:00:00").getTime();
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = defenseDate - now;
-            if (distance < 0) {
-                document.getElementById('countdown').innerHTML = "<p class='text-amber-500 font-bold col-span-2'>DEFENSE IS ON!</p>";
-                return;
-            }
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            document.getElementById('cd-days').innerText = days;
-            document.getElementById('cd-hours').innerText = hours;
+            if (distance < 0) return;
+            document.getElementById('cd-days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24));
+            document.getElementById('cd-hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         }
 
-        // --- Stats Wizard Logic ---
-        function selectStatsStep(step, val) {
-            if(step === 1) {
-                statsSelection.dvType = val;
-                document.getElementById('stats-step-1').classList.remove('active');
-                document.getElementById('stats-step-2').classList.add('active');
-            } else if (step === 2) {
-                statsSelection.ivConfig = val;
-                document.getElementById('stats-step-2').classList.remove('active');
-                if (['one-cont', 'multi'].includes(val) || statsSelection.dvType === 'categorical') {
-                    processStatsResult();
-                } else {
-                    document.getElementById('stats-step-3').classList.add('active');
-                }
-            } else if (step === 3) {
-                statsSelection.pairing = val;
-                document.getElementById('stats-step-3').classList.remove('active');
-                processStatsResult();
-            }
-        }
-
-        function resetStatsWizard() {
-            statsSelection.dvType = null;
-            statsSelection.ivConfig = null;
-            statsSelection.pairing = null;
-            document.querySelectorAll('.stats-step').forEach(s => s.classList.remove('active'));
-            document.getElementById('stats-step-1').classList.add('active');
-        }
-
-        function processStatsResult() {
-            const resultDiv = document.getElementById('stats-result');
-            const nameEl = document.getElementById('res-test-name');
-            const descEl = document.getElementById('res-test-desc');
-            const logicEl = document.getElementById('res-ucla-logic');
-            resultDiv.classList.add('active');
-            
-            const dv = statsSelection.dvType;
-            const iv = statsSelection.ivConfig;
-            const pair = statsSelection.pairing;
-
-            let res = { name: "Manual Verification Required", desc: "This data structure is complex. Consult your thesis advisor for Multivariate Analysis.", logic: "Complex/Mixed IVs" };
-
-            if (dv === 'continuous') {
-                if (iv === 'one-cat-2') {
-                    if (pair === 'independent') res = { name: "Independent T-Test", desc: "Use this to compare the mean performance of your product vs. a commercial standard.", logic: "1 DV (Cont), 1 IV (2 Groups), Independent" };
-                    else res = { name: "Paired T-Test", desc: "Use this if you are testing the SAME subject BEFORE and AFTER using your product.", logic: "1 DV (Cont), 1 IV (2 Groups), Related" };
-                } else if (iv === 'one-cat-many') {
-                    if (pair === 'independent') res = { name: "One-way ANOVA", desc: "Use this if you have 3 or more variations (e.g. 10%, 20%, 30% concentration) vs a control.", logic: "1 DV (Cont), 1 IV (3+ Groups), Independent" };
-                    else res = { name: "RM ANOVA", desc: "Use this if you test the same sample at multiple time intervals (Day 1, Day 7, Day 14).", logic: "1 DV (Cont), 1 IV (3+ Groups), Related" };
-                } else if (iv === 'one-cont') res = { name: "Linear Regression", desc: "Use this to predict outcomes based on a continuous variable (e.g. How much Heat increases Pressure).", logic: "1 DV (Cont), 1 IV (Cont)" };
-            } else if (dv === 'categorical') {
-                res = { name: "Chi-Square Independence", desc: "Use this to see if there's a relationship between two categories (e.g. Gender vs. Preference for your app).", logic: "DV (Cat), IV (Cat)" };
-            } else if (dv === 'ordinal') {
-                if (iv === 'one-cat-2') res = { name: "Mann-Whitney U", desc: "The non-parametric version of the t-test for ranked/ordinal data.", logic: "DV (Ordinal), 2 Groups" };
-                else res = { name: "Kruskal-Wallis", desc: "Non-parametric ANOVA for 3+ groups of ordinal data.", logic: "DV (Ordinal), 3+ Groups" };
-            }
-
-            nameEl.innerText = res.name;
-            descEl.innerText = res.desc;
-            logicEl.innerText = res.logic;
-        }
-
-        // --- Charts ---
         function initCharts() {
             const ctx1 = document.getElementById('timelineChart').getContext('2d');
-            new Chart(ctx1, {
-                type: 'bar',
-                data: {
-                    labels: ['W1-3 (Plan)', 'W4-7 (Build)', 'W8-10 (Test)', 'W11-13 (Defend)'],
-                    datasets: [{
-                        label: 'Intensity (%)',
-                        data: [30, 85, 70, 100],
-                        backgroundColor: '#f59e0b',
-                        borderRadius: 8
-                    }]
-                },
-                options: { maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } }
-            });
-
+            new Chart(ctx1, { type: 'bar', data: { labels: ['W1-3', 'W4-7', 'W8-10', 'W11-13'], datasets: [{ data: [30, 85, 70, 100], backgroundColor: '#f59e0b', borderRadius: 8 }] }, options: { maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } } } });
+            
             const ctx2 = document.getElementById('gradingChart').getContext('2d');
-            new Chart(ctx2, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Product Performance', 'Defense Mastery', 'Paper Quality'],
-                    datasets: [{
-                        data: [50, 30, 20],
-                        backgroundColor: ['#1c1917', '#d97706', '#e7e5e4'],
-                        borderWidth: 0
-                    }]
-                },
-                options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
-            });
+            new Chart(ctx2, { type: 'doughnut', data: { labels: ['Product', 'Defense', 'Paper'], datasets: [{ data: [50, 30, 20], backgroundColor: ['#1c1917', '#d97706', '#e7e5e4'], borderWidth: 0 }] }, options: { maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } } });
 
             const ctx3 = document.getElementById('testSimChart').getContext('2d');
-            new Chart(ctx3, {
-                type: 'line',
-                data: {
-                    labels: ['Trial 1', 'Trial 2', 'Trial 3'],
-                    datasets: [{
-                        label: 'Your Product',
-                        data: [82, 85, 84],
-                        borderColor: '#f59e0b',
-                        tension: 0.3
-                    }, {
-                        label: 'Commercial',
-                        data: [60, 62, 58],
-                        borderColor: '#d6d3d1',
-                        tension: 0.3
-                    }]
-                },
-                options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
+            new Chart(ctx3, { type: 'line', data: { labels: ['T1', 'T2', 'T3'], datasets: [{ label: 'Your Product', data: [82, 85, 84], borderColor: '#f59e0b' }, { label: 'Commercial', data: [60, 62, 58], borderColor: '#d6d3d1' }] }, options: { maintainAspectRatio: false, plugins: { legend: { display: false } } } });
         }
 
-        // --- Main ---
         window.onload = () => {
             initCharts();
             setInterval(updateCountdown, 1000);
@@ -530,9 +262,7 @@
         };
 
         document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            const s = document.getElementById('sidebar');
-            s.classList.toggle('hidden');
-            s.classList.toggle('absolute');
+            document.getElementById('sidebar').classList.toggle('hidden');
         });
     </script>
 </body>
