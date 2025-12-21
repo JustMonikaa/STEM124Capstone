@@ -21,7 +21,7 @@
             <div class="bg-stone-900 p-6 text-white flex justify-between items-center">
                 <div>
                     <h3 class="font-bold text-xl">Expert Statistical Decision Engine</h3>
-                    <p class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mt-1">Validated Logic Enabled</p>
+                    <p class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mt-1">Authorized Access Only</p>
                 </div>
                 <button onclick="window.location.href='index.html'" class="text-xs bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-full transition">Back to Dashboard</button>
             </div>
@@ -91,6 +91,17 @@
     </div>
 
     <script>
+        // --- SECURITY: REFERRER CHECK ---
+        (function() {
+            const ref = document.referrer;
+            // Kick users out if they didn't come from the main page
+            if (!ref.includes("index.html") && ref !== "") {
+                alert("Unauthorized access. Please log in through the main dashboard.");
+                window.location.href = "index.html";
+            }
+        })();
+
+        // --- ENGINE LOGIC ---
         const statsSelection = { dvType: null, ivConfig: null, pairing: null };
 
         function selectStatsStep(step, val) {
@@ -101,7 +112,7 @@
             } else if (step === 2) {
                 statsSelection.ivConfig = val;
                 document.getElementById('stats-step-2').classList.remove('active');
-                // Auto-process if continuous IV or categorical DV (matches your original index logic)
+                // Auto-process if continuous IV or categorical DV
                 if (['one-cont', 'multi'].includes(val) || statsSelection.dvType === 'categorical') {
                     processStatsResult();
                 } else {
@@ -133,7 +144,6 @@
             const iv = statsSelection.ivConfig;
             const pair = statsSelection.pairing;
 
-            // RESTORED FULL LOGIC
             let res = { 
                 name: "Manual Verification Required", 
                 desc: "This data structure is complex. Consult your thesis advisor for Multivariate Analysis.", 
