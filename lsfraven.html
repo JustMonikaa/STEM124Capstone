@@ -3,38 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stats Engine | STEM Capstone</title>
+    <title>Expert Stats Engine | STEM Capstone</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .stats-step { display: none; }
         .stats-step.active { display: block; }
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="bg-stone-50 p-4 md:p-12">
-    <div class="max-w-5xl mx-auto">
+<body class="bg-stone-50 text-stone-800 antialiased min-h-screen p-4 md:p-12">
+
+    <div class="max-w-5xl mx-auto fade-in">
         <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-stone-200">
             <div class="bg-stone-900 p-6 text-white flex justify-between items-center">
-                <h3 class="font-bold text-xl">Expert Statistical Decision Engine</h3>
+                <div>
+                    <h3 class="font-bold text-xl">Expert Statistical Decision Engine</h3>
+                    <p class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mt-1">Validated Logic Enabled</p>
+                </div>
                 <button onclick="window.location.href='index.html'" class="text-xs bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-full transition">Back to Dashboard</button>
             </div>
             
-            <div class="p-8 min-h-[400px]">
+            <div class="p-8 min-h-[500px]">
                 <div id="stats-step-1" class="stats-step active">
                     <h4 class="text-xl font-bold mb-6">1. What is the nature of your Dependent Variable (DV)?</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <button onclick="selectStatsStep(1, 'continuous')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
                             <span class="block font-bold">Continuous</span>
-                            <span class="text-xs text-stone-500">Scale/Ratio measurements</span>
+                            <span class="text-xs text-stone-500">Scale/Ratio measurements (e.g. 10.5kg, 3.2m, 45sec)</span>
                         </button>
                         <button onclick="selectStatsStep(1, 'categorical')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
                             <span class="block font-bold">Categorical</span>
-                            <span class="text-xs text-stone-500">Groups/Categories</span>
+                            <span class="text-xs text-stone-500">Groups/Categories (e.g. Yes/No, Red/Blue, Pass/Fail)</span>
                         </button>
                         <button onclick="selectStatsStep(1, 'ordinal')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
                             <span class="block font-bold">Ordinal</span>
-                            <span class="text-xs text-stone-500">Ranked data</span>
+                            <span class="text-xs text-stone-500">Ranked data (e.g. Low/Med/High, 1st/2nd/3rd)</span>
                         </button>
                     </div>
                 </div>
@@ -44,9 +50,15 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button onclick="selectStatsStep(2, 'one-cat-2')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
                             <span class="block font-bold text-lg">Two Groups</span>
+                            <span class="text-xs text-stone-500">Comparing your invention vs. 1 existing control.</span>
                         </button>
                         <button onclick="selectStatsStep(2, 'one-cat-many')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
                             <span class="block font-bold text-lg">Three+ Groups</span>
+                            <span class="text-xs text-stone-500">Testing different concentrations or multiple variations.</span>
+                        </button>
+                        <button onclick="selectStatsStep(2, 'one-cont')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
+                            <span class="block font-bold text-lg">One Continuous IV</span>
+                            <span class="text-xs text-stone-500">Finding relationship (e.g. More Heat = More Growth?)</span>
                         </button>
                     </div>
                 </div>
@@ -56,16 +68,23 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button onclick="selectStatsStep(3, 'independent')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
                             <span class="block font-bold text-lg">Independent</span>
+                            <span class="text-xs text-stone-500">Comparing Group A vs Group B (different subjects).</span>
                         </button>
                         <button onclick="selectStatsStep(3, 'paired')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
                             <span class="block font-bold text-lg">Paired / Related</span>
+                            <span class="text-xs text-stone-500">Same subject tested Before and After.</span>
                         </button>
                     </div>
                 </div>
 
                 <div id="stats-result" class="stats-step p-10 bg-amber-50 border-2 border-amber-200 rounded-3xl">
+                    <span class="inline-block bg-amber-600 text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase mb-4">Recommended Statistical Test</span>
                     <h4 id="res-test-name" class="text-3xl font-extrabold text-stone-900 mb-4">Test Name</h4>
                     <p id="res-test-desc" class="text-lg text-stone-600 mb-8 leading-relaxed">Description...</p>
+                    <div class="p-4 bg-white rounded-xl border border-amber-200 text-xs font-mono text-stone-500">
+                        Logic: <span id="res-ucla-logic">...</span>
+                    </div>
+                    <button onclick="resetStatsWizard()" class="mt-8 text-sm font-bold text-stone-900 hover:underline">← Start Over</button>
                 </div>
             </div>
         </div>
@@ -82,7 +101,12 @@
             } else if (step === 2) {
                 statsSelection.ivConfig = val;
                 document.getElementById('stats-step-2').classList.remove('active');
-                document.getElementById('stats-step-3').classList.add('active');
+                // Auto-process if continuous IV or categorical DV (matches your original index logic)
+                if (['one-cont', 'multi'].includes(val) || statsSelection.dvType === 'categorical') {
+                    processStatsResult();
+                } else {
+                    document.getElementById('stats-step-3').classList.add('active');
+                }
             } else if (step === 3) {
                 statsSelection.pairing = val;
                 document.getElementById('stats-step-3').classList.remove('active');
@@ -90,20 +114,50 @@
             }
         }
 
+        function resetStatsWizard() {
+            statsSelection.dvType = null;
+            statsSelection.ivConfig = null;
+            statsSelection.pairing = null;
+            document.querySelectorAll('.stats-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('stats-step-1').classList.add('active');
+        }
+
         function processStatsResult() {
             const resultDiv = document.getElementById('stats-result');
             const nameEl = document.getElementById('res-test-name');
             const descEl = document.getElementById('res-test-desc');
+            const logicEl = document.getElementById('res-ucla-logic');
             resultDiv.classList.add('active');
             
-            // Logic based on your original file
-            if (statsSelection.dvType === 'continuous' && statsSelection.pairing === 'independent') {
-                nameEl.innerText = "Independent T-Test";
-                descEl.innerText = "Compare the mean performance of your product vs. a commercial standard.";
-            } else {
-                nameEl.innerText = "Manual Verification Required";
-                descEl.innerText = "Consult your advisor.";
+            const dv = statsSelection.dvType;
+            const iv = statsSelection.ivConfig;
+            const pair = statsSelection.pairing;
+
+            // RESTORED FULL LOGIC
+            let res = { 
+                name: "Manual Verification Required", 
+                desc: "This data structure is complex. Consult your thesis advisor for Multivariate Analysis.", 
+                logic: "Complex/Mixed IVs" 
+            };
+
+            if (dv === 'continuous') {
+                if (iv === 'one-cat-2') {
+                    if (pair === 'independent') res = { name: "Independent T-Test", desc: "Use this to compare the mean performance of your product vs. a commercial standard.", logic: "1 DV (Cont), 1 IV (2 Groups), Independent" };
+                    else res = { name: "Paired T-Test", desc: "Use this if you are testing the SAME subject BEFORE and AFTER using your product.", logic: "1 DV (Cont), 1 IV (2 Groups), Related" };
+                } else if (iv === 'one-cat-many') {
+                    if (pair === 'independent') res = { name: "One-way ANOVA", desc: "Use this if you have 3 or more variations (e.g. 10%, 20%, 30% concentration) vs a control.", logic: "1 DV (Cont), 1 IV (3+ Groups), Independent" };
+                    else res = { name: "RM ANOVA", desc: "Use this if you test the same sample at multiple time intervals (Day 1, Day 7, Day 14).", logic: "1 DV (Cont), 1 IV (3+ Groups), Related" };
+                } else if (iv === 'one-cont') res = { name: "Linear Regression", desc: "Use this to predict outcomes based on a continuous variable (e.g. How much Heat increases Pressure).", logic: "1 DV (Cont), 1 IV (Cont)" };
+            } else if (dv === 'categorical') {
+                res = { name: "Chi-Square Independence", desc: "Use this to see if there's a relationship between two categories (e.g. Gender vs. Preference for your app).", logic: "DV (Cat), IV (Cat)" };
+            } else if (dv === 'ordinal') {
+                if (iv === 'one-cat-2') res = { name: "Mann-Whitney U", desc: "The non-parametric version of the t-test for ranked/ordinal data.", logic: "DV (Ordinal), 2 Groups" };
+                else res = { name: "Kruskal-Wallis", desc: "Non-parametric ANOVA for 3+ groups of ordinal data.", logic: "DV (Ordinal), 3+ Groups" };
             }
+
+            nameEl.innerText = res.name;
+            descEl.innerText = res.desc;
+            logicEl.innerText = res.logic;
         }
     </script>
 </body>
