@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STEM Capstone Navigator: The 13-Week Sprint</title>
+    <title>STEM Capstone: 13-Week Agile Lesson Plan</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -15,10 +14,7 @@
                 extend: {
                     colors: {
                         stone: { 50: '#fafaf9', 100: '#f5f5f4', 200: '#e7e5e4', 300: '#d6d3d1', 600: '#57534e', 800: '#292524', 900: '#1c1917' },
-                        amber: { 50: '#fffbeb', 100: '#fef3c7', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        amber: { 50: '#fffbeb', 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706', 700: '#b45309' }
                     }
                 }
             }
@@ -26,466 +22,331 @@
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f5f5f4; }
         ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 10px; }
-       .chart-container { position: relative; width: 100%; max-width: 600px; margin: auto; height: 300px; }
-       .hidden-section { display: none; }
-       .fade-in { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .chart-container { position: relative; width: 100%; max-width: 600px; margin: auto; height: 300px; }
+        .hidden-section { display: none; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-       .stats-step { display: none; }
-       .stats-step.active { display: block; }
-        
-        /* Lock Screen Animation */
-       .shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
-        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
+        .stats-step { display: none; }
+        .stats-step.active { display: block; }
+        .lesson-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .lesson-card:hover { transform: translateY(-4px); }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800 antialiased min-h-screen flex flex-col md:flex-row">
 
-    <nav id="sidebar" class="bg-stone-900 w-full md:w-72 flex-shrink-0 md:h-screen sticky top-0 hidden md:flex flex-col z-40 text-stone-300 shadow-2xl">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="bg-stone-900 w-full md:w-80 flex-shrink-0 md:h-screen sticky top-0 hidden md:flex flex-col z-40 text-stone-300">
         <div class="p-8 border-b border-stone-800">
             <h1 class="text-2xl font-extrabold tracking-tighter text-white">STEM CAPSTONE</h1>
-            <p class="text-[10px] uppercase tracking-[0.2em] text-amber-500 font-bold mt-1">Agile R&D Framework</p>
+            <p class="text-[10px] uppercase tracking-[0.2em] text-amber-500 font-bold mt-1">13-Week Lesson Plan</p>
         </div>
         
-        <div class="px-6 py-6 bg-stone-800/30 backdrop-blur-sm">
-            <div class="flex items-center justify-between mb-2">
-                <p class="text-[10px] uppercase font-bold text-stone-500">Defense Deadline</p>
-                <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+        <!-- Countdown Widget -->
+        <div class="px-6 py-6 bg-stone-800/50">
+            <div class="flex items-center justify-between mb-3">
+                <p class="text-[10px] uppercase font-bold text-stone-500">Defense Countdown</p>
+                <span class="px-2 py-0.5 rounded bg-amber-500 text-stone-900 text-[9px] font-bold">LIVE</span>
             </div>
             <div id="countdown" class="grid grid-cols-3 gap-2 text-center">
                 <div class="bg-stone-900 p-2 rounded border border-stone-700">
-                    <span id="cd-days" class="block text-lg font-bold text-white font-mono">--</span>
+                    <span id="cd-days" class="block text-xl font-bold text-white">--</span>
                     <span class="text-[8px] uppercase text-stone-500">Days</span>
                 </div>
                 <div class="bg-stone-900 p-2 rounded border border-stone-700">
-                    <span id="cd-hours" class="block text-lg font-bold text-white font-mono">--</span>
-                    <span class="text-[8px] uppercase text-stone-500">Hrs</span>
+                    <span id="cd-hours" class="block text-xl font-bold text-white">--</span>
+                    <span class="text-[8px] uppercase text-stone-500">Hours</span>
                 </div>
                 <div class="bg-stone-900 p-2 rounded border border-stone-700">
-                    <span id="cd-mins" class="block text-lg font-bold text-white font-mono">--</span>
+                    <span id="cd-mins" class="block text-xl font-bold text-white">--</span>
                     <span class="text-[8px] uppercase text-stone-500">Mins</span>
                 </div>
             </div>
-            <p class="text-[9px] mt-2 text-stone-400 italic text-center">Target: March 30, 2026</p>
         </div>
 
-        <div class="flex-1 overflow-y-auto py-6 space-y-1 px-4">
-            <button onclick="navigate('dashboard')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="dashboard">
-                Overview & Metrics
-            </button>
-            <div class="pt-4 pb-2 px-4 text-[10px] font-bold uppercase tracking-wider text-stone-600">The 13-Week Sprint</div>
-            <button onclick="navigate('phase1')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase1">
-                Phase 1: Validate (W1-3)
-            </button>
-            <button onclick="navigate('phase2')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase2">
-                Phase 2: Agile Build (W4-7)
-            </button>
-            <button onclick="navigate('phase3')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase3">
-                Phase 3: Reliability (W8-10)
-            </button>
-            <button onclick="navigate('phase4')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase4">
-                Phase 4: Defense (W11-13)
-            </button>
+        <div class="flex-1 overflow-y-auto py-4 space-y-1">
+            <div class="px-8 py-2 text-[10px] font-bold text-stone-600 uppercase tracking-widest">Navigation</div>
+            <button onclick="navigate('dashboard')" class="nav-item w-full text-left px-8 py-3 text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="dashboard">Course Dashboard</button>
+            <button onclick="navigate('phase1')" class="nav-item w-full text-left px-8 py-3 text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase1">Phase 1: Validation (W1-3)</button>
+            <button onclick="navigate('phase2')" class="nav-item w-full text-left px-8 py-3 text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase2">Phase 2: Execution (W4-7)</button>
+            <button onclick="navigate('phase3')" class="nav-item w-full text-left px-8 py-3 text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase3">Phase 3: Reliability (W8-10)</button>
+            <button onclick="navigate('phase4')" class="nav-item w-full text-left px-8 py-3 text-sm font-semibold transition-all hover:bg-stone-800 hover:text-white" data-target="phase4">Phase 4: Synthesis (W11-13)</button>
             
-            <div class="pt-4 pb-2 px-4 text-[10px] font-bold uppercase tracking-wider text-stone-600">Restricted Area</div>
-            <button onclick="navigate('tools')" class="nav-item w-full text-left px-4 py-3 rounded-lg text-sm font-semibold transition-all text-amber-500 hover:bg-stone-800 hover:text-amber-400 group flex items-center justify-between" data-target="tools">
-                <span>Stats Engine</span>
-                <span id="lock-icon" class="text-xs group-hover:text-amber-400">&#128274;</span>
-            </button>
+            <div class="px-8 pt-6 pb-2 text-[10px] font-bold text-stone-600 uppercase tracking-widest">Student Portal</div>
+            <button onclick="navigate('tools')" class="nav-item w-full text-left px-8 py-3 text-sm font-semibold transition-all text-amber-500 hover:bg-stone-800" data-target="tools">Stats Engine 🔓</button>
         </div>
     </nav>
 
-    <header class="md:hidden bg-stone-900 text-white p-4 flex justify-between items-center sticky top-0 z-50 shadow-md">
-        <h1 class="font-bold tracking-tight">STEM Capstone</h1>
-        <button id="mobile-menu-btn" class="text-2xl focus:outline-none">&#9776;</button>
+    <!-- Mobile Header -->
+    <header class="md:hidden bg-stone-900 text-white p-4 flex justify-between items-center sticky top-0 z-50">
+        <h1 class="font-bold">STEM Capstone</h1>
+        <button id="mobile-menu-btn" class="text-2xl">&#9776;</button>
     </header>
 
-    <main class="flex-1 overflow-y-auto h-screen bg-stone-50 p-4 md:p-10 lg:p-14">
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto h-screen bg-stone-50 p-6 md:p-12 lg:p-16">
         
-        <section id="dashboard" class="fade-in max-w-6xl mx-auto space-y-10">
-            <header class="space-y-4 border-b border-stone-200 pb-8">
-                <h2 class="text-4xl md:text-5xl font-extrabold text-stone-900 tracking-tight">Engineering Dashboard</h2>
-                <p class="text-lg text-stone-600 max-w-2xl leading-relaxed">
-                    Welcome to the <strong>Applied R&D Sprint</strong>. This is not Practical Research 3. We assume you know how to cite sources. 
-                    This 13-week guide is built on the <strong>Engineering Design Process (EDP)</strong> and <strong>Agile Methodology</strong> to ensure you have a working prototype by March 30.
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="fade-in max-w-6xl mx-auto space-y-12">
+            <header class="space-y-4">
+                <div class="inline-block bg-amber-100 text-amber-700 px-3 py-1 rounded-full text-xs font-bold tracking-wider">ACADEMIC YEAR 2025-2026</div>
+                <h2 class="text-5xl font-extrabold text-stone-900 tracking-tight">The Capstone Agile Framework</h2>
+                <p class="text-xl text-stone-500 max-w-2xl leading-relaxed">
+                    A product-first lesson plan centered on the <strong>Engineering Design Process (EDP)</strong>. 
+                    This course assumes prerequisite mastery of Practical Research 1 & 2.
                 </p>
             </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-2 h-2 rounded-full bg-amber-500"></div>
-                        <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest">Active Sprint</h3>
-                    </div>
-                    <p class="text-3xl font-bold text-stone-900">Sprint 1: MVP</p>
-                    <p class="text-sm text-stone-500 mt-2">Focus: Minimum Viable Product</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-2 h-2 rounded-full bg-blue-500"></div>
-                        <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest">Success Metric</h3>
-                    </div>
-                    <p class="text-3xl font-bold text-stone-900">Reliability > Novelty</p>
-                    <p class="text-sm text-stone-500 mt-2">A boring machine that works beats a cool one that doesn't.</p>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-2 h-2 rounded-full bg-red-500"></div>
-                        <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest">Hard Constraint</h3>
-                    </div>
-                    <p class="text-3xl font-bold text-stone-900">Zero Plagiarism</p>
-                    <p class="text-sm text-stone-500 mt-2">Logbooks are audited weekly.</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                    <div class="flex justify-between items-end mb-6">
-                        <h3 class="text-lg font-bold text-stone-900">Timeline Intensity</h3>
-                        <span class="text-xs font-mono bg-stone-100 px-2 py-1 rounded">13 Weeks</span>
-                    </div>
-                    <div class="chart-container"><canvas id="timelineChart"></canvas></div>
+                    <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Philosophy</h3>
+                    <p class="text-xl font-bold text-stone-900">Prototype First, Paper Second.</p>
                 </div>
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                    <div class="flex justify-between items-end mb-6">
-                        <h3 class="text-lg font-bold text-stone-900">Defense Scoring</h3>
-                        <span class="text-xs font-mono bg-stone-100 px-2 py-1 rounded">DepEd/ISEF Aligned</span>
-                    </div>
-                    <div class="chart-container"><canvas id="gradingChart"></canvas></div>
+                    <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">International Standards</h3>
+                    <p class="text-xl font-bold text-stone-900">ISEF & IPOPHIL Aligned.</p>
                 </div>
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
+                    <h3 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-2">Timeline Constraint</h3>
+                    <p class="text-xl font-bold text-stone-900">13-Week Hard Sprint.</p>
+                </div>
+            </div>
+
+            <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-stone-100">
+                <h3 class="text-2xl font-bold mb-8">Workload Distribution</h3>
+                <div class="chart-container"><canvas id="workloadChart"></canvas></div>
             </div>
         </section>
 
-        <section id="phase1" class="hidden-section fade-in max-w-6xl mx-auto space-y-8">
-            <div class="bg-stone-900 p-10 md:p-12 rounded-3xl text-white relative overflow-hidden">
-                <div class="relative z-10">
-                    <span class="text-amber-500 font-bold tracking-wider text-xs uppercase mb-2 block">Weeks 1-3</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Phase 1: Market Validation & Patent Search</h2>
-                    <p class="opacity-80 max-w-3xl leading-relaxed">
-                        Stop asking "What do I want to build?" and start asking "What problem actually exists?" 
-                        We avoid the common trap of re-inventing the wheel by using <strong>Prior Art Search</strong> before we write a single word of the manuscript.
-                    </p>
-                </div>
-                <div class="absolute right-0 top-0 w-64 h-64 bg-stone-800 rounded-full blur-3xl opacity-50 -mr-16 -mt-16"></div>
+        <!-- PHASE 1 -->
+        <section id="phase1" class="hidden-section fade-in max-w-5xl mx-auto space-y-12">
+            <div class="bg-amber-600 p-12 rounded-[3rem] text-white">
+                <h2 class="text-4xl font-extrabold mb-4">Phase 1: Validation</h2>
+                <p class="text-lg opacity-90 max-w-2xl">Weeks 1-3. Establishing the "Why" through Patent Search and Community Gap Analysis. No generic topics allowed.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center text-amber-700 font-bold mb-4">1</div>
-                    <h4 class="font-bold text-lg text-stone-900">The Gap Analysis</h4>
-                    <p class="text-sm text-stone-600 mt-2 mb-4">Do not use Scribd. Go to <a href="https://patents.google.com/" target="_blank" class="text-amber-600 hover:underline">Google Patents</a> and <a href="https://www.ipophil.gov.ph/" target="_blank" class="text-amber-600 hover:underline">IPOPHIL</a>.</p>
-                    <ul class="text-xs text-stone-500 space-y-2">
-                        <li class="flex items-start gap-2">✓ List 3 existing patents similar to your idea.</li>
-                        <li class="flex items-start gap-2">✓ Identify <strong>ONE</strong> specific flaw in them (Cost, Size, Efficiency).</li>
-                    </ul>
-                </div>
-                
-                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center text-amber-700 font-bold mb-4">2</div>
-                    <h4 class="font-bold text-lg text-stone-900">Value Proposition</h4>
-                    <p class="text-sm text-stone-600 mt-2 mb-4">Fill out the <strong>Value Proposition Canvas</strong>. Map "Customer Pains" to your "Product Relievers".</p>
-                    <div class="bg-stone-50 p-3 rounded text-xs text-stone-600 italic">
-                        "Farmers hate manual watering (Pain) -> Our device auto-waters based on soil moisture (Reliever)."
+            <div class="space-y-6">
+                <!-- Week 1 -->
+                <div class="lesson-card bg-white p-8 rounded-3xl border border-stone-200 shadow-sm flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/4">
+                        <span class="text-4xl font-black text-amber-500 opacity-20">W1</span>
+                        <h4 class="text-xl font-extrabold text-stone-900">The Patent Gap</h4>
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <p class="text-stone-600"><strong>Objective:</strong> To validate that the proposed invention is novel using international patent databases.</p>
+                        <ul class="text-sm space-y-2 list-disc list-inside text-stone-500">
+                            <li>Prior Art Search via <strong>Google Patents</strong> & <strong>WIPO</strong>.</li>
+                            <li>Analysis of existing commercial equivalents in the Philippine market.</li>
+                        </ul>
+                        <div class="bg-stone-50 p-4 rounded-xl text-xs"><strong>Output:</strong> Novelty Comparison Matrix.</div>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center text-amber-700 font-bold mb-4">3</div>
-                    <h4 class="font-bold text-lg text-stone-900">Feasibility Defense</h4>
-                    <p class="text-sm text-stone-600 mt-2 mb-4">This is a "Go/No-Go" gate. Present your <strong>Bill of Materials (BOM)</strong>.</p>
-                    <ul class="text-xs text-stone-500 space-y-2">
-                        <li class="flex items-start gap-2">✓ Can you afford it? (Budget Check)</li>
-                        <li class="flex items-start gap-2">✓ Are parts locally available? (Lazada vs Import)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="phase2" class="hidden-section fade-in max-w-6xl mx-auto space-y-8">
-            <div class="bg-amber-500 p-10 md:p-12 rounded-3xl text-white relative overflow-hidden">
-                <div class="relative z-10">
-                    <span class="text-stone-900 font-bold tracking-wider text-xs uppercase mb-2 block">Weeks 4-7</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-stone-900">Phase 2: The Agile Build Sprints</h2>
-                    <p class="text-stone-900/80 max-w-3xl leading-relaxed font-medium">
-                        We ditch the "Waterfall" method. You will not build one perfect thing at the end. 
-                        You will build <strong>Fast</strong>, <strong>Fail Early</strong>, and <strong>Iterate</strong>. 
-                        This is how real engineering works.
-                    </p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                    <h4 class="font-bold text-stone-900 flex items-center gap-2">
-                        <span class="text-xl">🛒</span> Supply Chain Guide
-                    </h4>
-                    <div class="mt-4 space-y-4">
-                        <div class="text-sm">
-                            <strong class="block text-stone-700">For Electronics (Arduino/Sensors):</strong>
-                            <span class="text-stone-500">Avoid shipping delays. Go to <em>Alexan</em> (Megamall/Quiapo) or <em>Deeco</em> for instant stock. If ordering online (Shopee/Lazada), ensure "Local Stock" filter is ON.</span>
-                        </div>
-                        <div class="text-sm">
-                            <strong class="block text-stone-700">For Hardware (Wood/Metal):</strong>
-                            <span class="text-stone-500">Visit local junk shops for scrap metal (cheaper/eco-friendly) or CW Home Depot for specific cuts.</span>
-                        </div>
+                <!-- Week 2 -->
+                <div class="lesson-card bg-white p-8 rounded-3xl border border-stone-200 shadow-sm flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/4">
+                        <span class="text-4xl font-black text-amber-500 opacity-20">W2</span>
+                        <h4 class="text-xl font-extrabold text-stone-900">System Design</h4>
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <p class="text-stone-600"><strong>Objective:</strong> To translate a problem into a technical schematic using the Input-Process-Output (IPO) model.</p>
+                        <ul class="text-sm space-y-2 list-disc list-inside text-stone-500">
+                            <li>System Architecture drafting (Circuitry or Mechanical drawings).</li>
+                            <li>Identifying Measurable Variables (What exactly are we testing?).</li>
+                        </ul>
+                        <div class="bg-stone-50 p-4 rounded-xl text-xs"><strong>Output:</strong> Technical Schematic Diagram & Approved Title.</div>
                     </div>
                 </div>
 
-                <div class="lg:col-span-2 space-y-4">
-                    <div class="bg-white p-6 rounded-2xl border-l-4 border-l-amber-500 shadow-sm flex flex-col md:flex-row gap-6">
-                        <div class="flex-shrink-0 w-16 text-center">
-                            <span class="block text-sm font-bold text-stone-400 uppercase">Weeks</span>
-                            <span class="block text-2xl font-bold text-stone-900">4-5</span>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg text-stone-900">Sprint 1: The "Ugly" Prototype (MVP)</h4>
-                            <p class="text-sm text-stone-600 mt-1">Goal: Functionality ONLY. Use cardboard, duct tape, and breadboards. No soldering yet. Does the sensor read data? Does the code compile?</p>
-                            <div class="mt-3 bg-stone-100 inline-block px-3 py-1 rounded text-xs font-mono text-stone-600">Deliverable: Working Circuit / Skeleton</div>
-                        </div>
+                <!-- Week 3 -->
+                <div class="lesson-card bg-white p-8 rounded-3xl border border-stone-200 shadow-sm flex flex-col md:flex-row gap-8">
+                    <div class="md:w-1/4">
+                        <span class="text-4xl font-black text-amber-500 opacity-20">W3</span>
+                        <h4 class="text-xl font-extrabold text-stone-900">Proposal Defense</h4>
                     </div>
-
-                    <div class="bg-white p-6 rounded-2xl border-l-4 border-l-stone-800 shadow-sm flex flex-col md:flex-row gap-6">
-                        <div class="flex-shrink-0 w-16 text-center">
-                            <span class="block text-sm font-bold text-stone-400 uppercase">Weeks</span>
-                            <span class="block text-2xl font-bold text-stone-900">6-7</span>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-lg text-stone-900">Sprint 2: Integration & Enclosure</h4>
-                            <p class="text-sm text-stone-600 mt-1">Goal: Durability. Solder the connections on a PCB (Universal board). 3D print or fabricate the housing. Ensure wires aren't loose.</p>
-                            <div class="mt-3 bg-stone-100 inline-block px-3 py-1 rounded text-xs font-mono text-stone-600">Deliverable: Field-Ready Device</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-stone-100 rounded-2xl p-6 border border-stone-200">
-                <div class="flex items-start gap-4">
-                    <div class="bg-white p-2 rounded-full shadow-sm">📓</div>
-                    <div>
-                        <h4 class="font-bold text-stone-900">The Engineering Logbook Protocol</h4>
-                        <p class="text-sm text-stone-600 mt-1">
-                            You must maintain a physical notebook. <strong>No logbook, no defense.</strong> 
-                            Each entry must be dated and signed. Paste raw receipts, sketch diagrams, and write down <em>every</em> failed attempt. 
-                            (e.g., "Oct 12: Sensor burned out. Reason: connected 5V to 3.3V pin.")
-                        </p>
+                    <div class="flex-1 space-y-4">
+                        <p class="text-stone-600"><strong>Objective:</strong> To defend the feasibility and ethical considerations of the project before a technical panel.</p>
+                        <ul class="text-sm space-y-2 list-disc list-inside text-stone-500">
+                            <li>ISEF Ethics Checklist (No vertebrates/toxins).</li>
+                            <li>Cost-Benefit Analysis (Bill of Materials).</li>
+                        </ul>
+                        <div class="bg-stone-50 p-4 rounded-xl text-xs font-bold text-amber-700">GATE 1: GO / NO-GO Decision.</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="phase3" class="hidden-section fade-in max-w-6xl mx-auto space-y-8">
-            <div class="bg-stone-200 p-10 md:p-12 rounded-3xl text-stone-900 relative overflow-hidden">
-                <div class="relative z-10">
-                    <span class="text-stone-500 font-bold tracking-wider text-xs uppercase mb-2 block">Weeks 8-10</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Phase 3: Reliability & Testing</h2>
-                    <p class="text-stone-600 max-w-3xl leading-relaxed">
-                        In Practical Research 2, you learned to test a hypothesis. In Capstone, you test a <strong>Product</strong>. 
-                        We focus on Mean Time Between Failures (MTBF) and User Acceptance Testing (UAT).
-                    </p>
-                </div>
+        <!-- PHASE 2 -->
+        <section id="phase2" class="hidden-section fade-in max-w-5xl mx-auto space-y-12">
+            <div class="bg-stone-900 p-12 rounded-[3rem] text-white">
+                <h2 class="text-4xl font-extrabold mb-4">Phase 2: Execution</h2>
+                <p class="text-lg opacity-70 max-w-2xl">Weeks 4-7. Moving from CAD/Schematics to a Minimum Viable Product (MVP). High emphasis on Logbook documentation.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-8 rounded-3xl border border-stone-200 hover:border-amber-500 transition-colors group">
-                    <h4 class="font-bold text-xl text-stone-900 mb-4 group-hover:text-amber-600">1. Efficiency Testing</h4>
-                    <p class="text-sm text-stone-600 mb-6">Does it actually work? Compare your device against the manual method or a commercial product.</p>
-                    
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between text-xs font-mono bg-stone-50 p-2 rounded">
-                            <span>Trial 1</span>
-                            <span class="text-stone-400">Manual: 45m</span>
-                            <span class="font-bold text-green-600">Device: 12m</span>
+                <div class="bg-white p-8 rounded-3xl border border-stone-200">
+                    <h4 class="text-amber-600 font-bold uppercase tracking-widest text-xs mb-4">Week 4-5: Prototyping I</h4>
+                    <p class="text-stone-700 font-bold mb-2">The "Proof of Concept" Build</p>
+                    <p class="text-sm text-stone-500 mb-4">Students build the internal mechanism (e.g., breadboard for electronics, raw framework for mechanical). Does the basic code/physics work?</p>
+                    <div class="bg-stone-50 p-4 rounded-xl text-xs italic">"Failure here is required. Every failed build must be documented in the Logbook for 'Process Grading'."</div>
+                </div>
+                <div class="bg-white p-8 rounded-3xl border border-stone-200">
+                    <h4 class="text-amber-600 font-bold uppercase tracking-widest text-xs mb-4">Week 6-7: Prototyping II</h4>
+                    <p class="text-stone-700 font-bold mb-2">Integration & Enclosure</p>
+                    <p class="text-sm text-stone-500 mb-4">Finalizing the physical housing. Moving from breadboards to soldered PCBs. Improving the User Experience (UX).</p>
+                    <ul class="text-[10px] text-stone-400 uppercase font-bold space-y-1 mt-4">
+                        <li>• Final BOM Audit</li>
+                        <li>• Photo Documentation</li>
+                        <li>• Safety Protocol Review</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHASE 3 -->
+        <section id="phase3" class="hidden-section fade-in max-w-5xl mx-auto space-y-12">
+            <div class="bg-stone-200 p-12 rounded-[3rem] text-stone-900">
+                <h2 class="text-4xl font-extrabold mb-4">Phase 3: Reliability</h2>
+                <p class="text-lg text-stone-600 max-w-2xl">Weeks 8-10. Rigorous testing using statistical benchmarks. Proving the product is better than the alternative.</p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8">
+                <div class="bg-white p-10 rounded-3xl border border-stone-200 shadow-sm relative overflow-hidden">
+                    <div class="relative z-10 space-y-6">
+                        <div class="flex items-center gap-4">
+                            <span class="w-12 h-12 bg-stone-900 text-white flex items-center justify-center rounded-xl font-black">W8</span>
+                            <h4 class="text-2xl font-bold">The Experimental Trial</h4>
                         </div>
-                        <div class="flex items-center justify-between text-xs font-mono bg-stone-50 p-2 rounded">
-                            <span>Trial 2</span>
-                            <span class="text-stone-400">Manual: 42m</span>
-                            <span class="font-bold text-green-600">Device: 11m</span>
-                        </div>
-                        <div class="flex items-center justify-between text-xs font-mono bg-stone-50 p-2 rounded">
-                            <span>Trial 3</span>
-                            <span class="text-stone-400">Manual: 48m</span>
-                            <span class="font-bold text-green-600">Device: 13m</span>
+                        <p class="text-stone-600"><strong>Activity:</strong> Conducting a minimum of 3 trials (Standard HS Experimental Design). Documentation of independent and dependent variables in real-time.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-stone-50 rounded-2xl border border-stone-100">
+                                <span class="block text-[10px] font-bold text-stone-400 uppercase">Trial A: Control</span>
+                                <p class="text-sm font-bold">How does the manual/commercial method perform?</p>
+                            </div>
+                            <div class="p-4 bg-amber-50 rounded-2xl border border-amber-100">
+                                <span class="block text-[10px] font-bold text-amber-400 uppercase">Trial B: Experimental</span>
+                                <p class="text-sm font-bold">How does your invention perform under the same conditions?</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="bg-white p-8 rounded-3xl border border-stone-200 hover:border-amber-500 transition-colors group">
-                    <h4 class="font-bold text-xl text-stone-900 mb-4 group-hover:text-amber-600">2. User Acceptance (UAT)</h4>
-                    <p class="text-sm text-stone-600 mb-6">Let the target users (from Phase 1) touch it. Do not explain how to use it. Watch them struggle. This is data.</p>
-                    
-                    <div class="bg-amber-50 border-l-4 border-amber-500 p-4">
-                        <p class="text-xs text-amber-900 font-bold">The "Mom Test"</p>
-                        <p class="text-xs text-amber-800 mt-1">If your mom can't figure out how to turn it on in 30 seconds, your UX failed. Iterate.</p>
+                <div class="bg-white p-10 rounded-3xl border border-stone-200 shadow-sm">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="w-12 h-12 bg-stone-900 text-white flex items-center justify-center rounded-xl font-black">W9-10</span>
+                        <h4 class="text-2xl font-bold">Statistical Inference</h4>
+                    </div>
+                    <p class="text-stone-600 mb-6"><strong>Activity:</strong> Using the <strong>Expert Stats Engine</strong> to determine if the difference in performance is statistically significant (p < 0.05).</p>
+                    <div class="p-6 bg-stone-900 rounded-2xl text-stone-400 text-xs font-mono">
+                        [LOGIC CHECK]: If Result > Control AND p < 0.05 -> SUCCESS <br>
+                        [LOGIC CHECK]: If Result <= Control -> ANALYZE FAILURE / PIVOT RECOMMENDATIONS
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="phase4" class="hidden-section fade-in max-w-6xl mx-auto space-y-8">
-            <div class="bg-stone-900 p-10 md:p-12 rounded-3xl text-white">
-                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div>
-                        <span class="text-amber-500 font-bold tracking-wider text-xs uppercase mb-2 block">Weeks 11-13</span>
-                        <h2 class="text-3xl md:text-4xl font-bold mb-2">Phase 4: The Defense</h2>
-                        <p class="opacity-70 max-w-xl">
-                            The panel isn't looking for a Nobel prize. They are looking for: 1) Did you build it yourself? 2) Does it work? 3) Do you understand the science?
-                        </p>
-                    </div>
-                    <div class="text-right hidden md:block">
-                        <div class="text-5xl font-extrabold text-amber-500 tracking-tighter">13</div>
-                        <div class="text-sm uppercase tracking-widest opacity-60">Weeks Complete</div>
-                    </div>
-                </div>
+        <!-- PHASE 4 -->
+        <section id="phase4" class="hidden-section fade-in max-w-5xl mx-auto space-y-12">
+            <div class="bg-stone-900 p-12 rounded-[3rem] text-white">
+                <h2 class="text-4xl font-extrabold mb-4">Phase 4: Synthesis</h2>
+                <p class="text-lg opacity-70 max-w-2xl">Weeks 11-13. The Final Presentation. Mastering the Q&A and finalizing the Science Fair poster.</p>
             </div>
 
-            <div class="bg-white rounded-3xl border border-stone-200 overflow-hidden shadow-sm">
-                <div class="p-8 border-b border-stone-100 bg-stone-50">
-                    <h3 class="font-bold text-xl text-stone-800">The Grading Rubric Survival Guide</h3>
-                    <p class="text-sm text-stone-500 mt-1">Based on standard Engineering Capstone Rubrics (Source: ISEF/DepEd Guidelines)</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border border-stone-200">
+                    <span class="text-xs font-bold text-stone-400 uppercase">W11</span>
+                    <h5 class="font-bold text-stone-900 mt-2">The Abstract & Poster</h5>
+                    <p class="text-xs text-stone-500 mt-2">Condensing 13 weeks of work into a 250-word abstract and a visually compelling ISEF-compliant poster board.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-stone-100">
-                    <div class="p-8 space-y-6">
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center text-green-700 font-bold text-xl">A</div>
-                            <div>
-                                <h4 class="font-bold text-stone-900">Engineering Goals (40%)</h4>
-                                <p class="text-sm text-stone-600 mt-1">Prototype is fully functional. "Dead" prototypes (those that broke 'just this morning') receive automatic deductions. Wiring is neat and enclosed.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl">B</div>
-                            <div>
-                                <h4 class="font-bold text-stone-900">Scientific Thought (30%)</h4>
-                                <p class="text-sm text-stone-600 mt-1">Data analysis uses correct stats (see Tools). Variables were controlled during testing. Claims are backed by your specific data, not general knowledge.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-8 space-y-6">
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-purple-100 flex items-center justify-center text-purple-700 font-bold text-xl">C</div>
-                            <div>
-                                <h4 class="font-bold text-stone-900">Process & Agility (20%)</h4>
-                                <p class="text-sm text-stone-600 mt-1">Evidence of iteration. Show the "V1" that failed. Show the logbook. Prove you solved problems rather than just copying a tutorial.</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 font-bold text-xl">D</div>
-                            <div>
-                                <h4 class="font-bold text-stone-900">Presentation (10%)</h4>
-                                <p class="text-sm text-stone-600 mt-1">10 minutes max. Slides are visual (photos/graphs), not walls of text. Q&A is answered confidently by <em>all</em> members, not just the leader.</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="bg-white p-6 rounded-2xl border border-stone-200">
+                    <span class="text-xs font-bold text-stone-400 uppercase">W12</span>
+                    <h5 class="font-bold text-stone-900 mt-2">Mock Defense</h5>
+                    <p class="text-xs text-stone-500 mt-2">Peer-to-peer judging sessions. Focus on handling "Mean Panelist" questions regarding methodology flaws.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-stone-200 border-2 border-amber-500">
+                    <span class="text-xs font-bold text-amber-600 uppercase">W13</span>
+                    <h5 class="font-bold text-stone-900 mt-2">FINAL PANEL</h5>
+                    <p class="text-xs text-stone-500 mt-2">The high-stakes defense. Functional product demonstration is mandatory. Graduation clearance hinges here.</p>
                 </div>
             </div>
         </section>
 
-        <section id="tools" class="hidden-section fade-in max-w-6xl mx-auto min-h-[500px] flex flex-col">
-            
-            <div id="lock-screen" class="flex-1 flex flex-col items-center justify-center bg-white rounded-3xl shadow-xl border border-stone-200 p-8 md:p-12 text-center transition-all duration-300">
-                <div class="w-20 h-20 bg-stone-100 rounded-full flex items-center justify-center mb-6">
-                    <span class="text-4xl text-stone-400">🔒</span>
+        <!-- TOOLS (LOCKED) -->
+        <section id="tools" class="hidden-section fade-in max-w-5xl mx-auto min-h-[500px]">
+            <div id="lock-screen" class="bg-white p-12 rounded-[3rem] shadow-xl border border-stone-200 text-center flex flex-col items-center justify-center min-h-[500px]">
+                <div class="w-24 h-24 bg-stone-100 rounded-full flex items-center justify-center mb-8">
+                    <span class="text-5xl text-stone-400">🔒</span>
                 </div>
-                <h3 class="text-2xl font-bold text-stone-900 mb-2">Restricted Access</h3>
-                <p class="text-stone-500 max-w-sm mb-8">This Statistical Engine is reserved for STEM students who have completed the Phase 1 Feasibility Check.</p>
+                <h3 class="text-3xl font-extrabold text-stone-900 mb-4">Student Access Required</h3>
+                <p class="text-stone-500 max-w-md mb-8">This Statistical Engine is restricted to students currently in Phase 3. Please enter the passcode provided by your research advisor.</p>
                 
-                <div class="w-full max-w-xs space-y-4">
-                    <input type="password" id="password-input" 
-                        class="w-full px-4 py-3 text-center text-lg tracking-widest font-bold rounded-xl border-2 border-stone-200 focus:border-amber-500 focus:outline-none transition-colors"
-                        placeholder="ENTER PASSKEY">
-                    <button onclick="attemptUnlock()" 
-                        class="w-full bg-stone-900 text-white font-bold py-3.5 rounded-xl hover:bg-stone-800 transition-transform active:scale-95">
-                        UNLOCK ENGINE
-                    </button>
-                    <p id="error-msg" class="text-red-500 text-xs font-bold hidden">ACCESS DENIED: INVALID KEY</p>
+                <div class="w-full max-w-sm space-y-4">
+                    <input type="password" id="passkey" placeholder="Enter Access Code" class="w-full px-6 py-4 rounded-2xl border-2 border-stone-100 focus:border-amber-500 text-center text-lg font-bold tracking-widest focus:outline-none transition-all">
+                    <button onclick="attemptUnlock()" class="w-full bg-stone-900 text-white font-bold py-4 rounded-2xl hover:bg-stone-800 transition-all shadow-xl shadow-stone-200">Unlock Tools</button>
+                    <p id="error-txt" class="text-red-500 text-xs font-bold hidden">INVALID ACCESS KEY. TRY AGAIN.</p>
                 </div>
             </div>
 
-            <div id="unlocked-content" class="hidden flex-1 space-y-8">
-                <div class="flex items-center justify-between bg-stone-900 text-white p-6 rounded-2xl">
+            <div id="unlocked-tools" class="hidden space-y-8">
+                <!-- STATS ENGINE RE-INTEGRATED FROM PREVIOUS DESIGN -->
+                <div class="bg-stone-900 p-8 rounded-3xl text-white flex justify-between items-center">
                     <div>
-                        <h3 class="font-bold text-xl">Expert Stats Engine</h3>
-                        <p class="text-xs text-stone-400">Logic based on UCLA IDRE Standards</p>
+                        <h3 class="text-2xl font-bold">Expert Statistical Engine</h3>
+                        <p class="text-xs opacity-50">Mapping: Data Nature -> IV Count -> Pairing -> Test</p>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded border border-green-500/30">UNLOCKED</span>
-                        <button onclick="resetStats()" class="text-xs bg-stone-700 hover:bg-stone-600 px-3 py-1.5 rounded transition">Reset</button>
-                    </div>
+                    <button onclick="resetWizard()" class="text-xs bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-lg transition">Reset Wizard</button>
                 </div>
 
-                <div class="bg-white border border-stone-200 rounded-3xl p-8 md:p-10 shadow-sm min-h-[400px]">
-                    
+                <div class="bg-white p-12 rounded-[3rem] border border-stone-200 shadow-sm min-h-[400px]">
                     <div id="step-1" class="stats-step active">
-                        <h4 class="text-lg font-bold text-stone-400 uppercase tracking-widest mb-4">Step 1 of 3</h4>
-                        <h2 class="text-3xl font-bold text-stone-900 mb-8">What type of data are you measuring?</h2>
+                        <h4 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-4">Step 1: The Dependent Variable</h4>
+                        <h2 class="text-3xl font-bold mb-8">What is the measurement type?</h2>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <button onclick="nextStep(1, 'continuous')" class="p-8 rounded-2xl border-2 border-stone-100 hover:border-amber-500 hover:bg-amber-50 text-left group transition-all">
-                                <span class="text-3xl mb-4 block group-hover:scale-110 transition-transform">📏</span>
-                                <h3 class="font-bold text-stone-900 mb-1">Continuous</h3>
-                                <p class="text-xs text-stone-500">Decimals, Height, Weight, Speed, Voltage.</p>
+                            <button onclick="wizardNext(1, 'continuous')" class="p-6 border-2 border-stone-50 rounded-2xl hover:border-amber-500 hover:bg-amber-50 text-left transition-all">
+                                <span class="block font-bold">Continuous</span>
+                                <span class="text-xs text-stone-500">Decimals, Height, Time, Weight, pH</span>
                             </button>
-                            <button onclick="nextStep(1, 'categorical')" class="p-8 rounded-2xl border-2 border-stone-100 hover:border-amber-500 hover:bg-amber-50 text-left group transition-all">
-                                <span class="text-3xl mb-4 block group-hover:scale-110 transition-transform">🗂️</span>
-                                <h3 class="font-bold text-stone-900 mb-1">Categorical</h3>
-                                <p class="text-xs text-stone-500">Yes/No, Color, Success/Fail, Alive/Dead.</p>
+                            <button onclick="wizardNext(1, 'categorical')" class="p-6 border-2 border-stone-50 rounded-2xl hover:border-amber-500 hover:bg-amber-50 text-left transition-all">
+                                <span class="block font-bold">Categorical</span>
+                                <span class="text-xs text-stone-500">Groups, Yes/No, Alive/Dead</span>
                             </button>
-                            <button onclick="nextStep(1, 'ordinal')" class="p-8 rounded-2xl border-2 border-stone-100 hover:border-amber-500 hover:bg-amber-50 text-left group transition-all">
-                                <span class="text-3xl mb-4 block group-hover:scale-110 transition-transform">📊</span>
-                                <h3 class="font-bold text-stone-900 mb-1">Ordinal</h3>
-                                <p class="text-xs text-stone-500">Rankings, Likert Scale (1-5), Satisfaction.</p>
+                            <button onclick="wizardNext(1, 'ordinal')" class="p-6 border-2 border-stone-50 rounded-2xl hover:border-amber-500 hover:bg-amber-50 text-left transition-all">
+                                <span class="block font-bold">Ordinal</span>
+                                <span class="text-xs text-stone-500">Rankings, Likert Scales (1-5)</span>
                             </button>
                         </div>
                     </div>
 
                     <div id="step-2" class="stats-step">
-                        <h4 class="text-lg font-bold text-stone-400 uppercase tracking-widest mb-4">Step 2 of 3</h4>
-                        <h2 class="text-3xl font-bold text-stone-900 mb-8">How many groups are you comparing?</h2>
+                        <h4 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-4">Step 2: Comparison Groups</h4>
+                        <h2 class="text-3xl font-bold mb-8">How many levels are being compared?</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button onclick="nextStep(2, '2groups')" class="p-6 rounded-xl border-2 border-stone-100 hover:border-amber-500 hover:bg-amber-50 text-left">
-                                <h3 class="font-bold text-stone-900">Two Groups</h3>
-                                <p class="text-xs text-stone-500 mt-1">Example: "My Device" vs "Commercial Product"</p>
-                            </button>
-                            <button onclick="nextStep(2, '3groups')" class="p-6 rounded-xl border-2 border-stone-100 hover:border-amber-500 hover:bg-amber-50 text-left">
-                                <h3 class="font-bold text-stone-900">Three or More Groups</h3>
-                                <p class="text-xs text-stone-500 mt-1">Example: Setup A vs Setup B vs Setup C</p>
-                            </button>
-                            <button onclick="nextStep(2, 'correlation')" class="p-6 rounded-xl border-2 border-stone-100 hover:border-amber-500 hover:bg-amber-50 text-left md:col-span-2">
-                                <h3 class="font-bold text-stone-900">I'm looking for a Relationship (Correlation)</h3>
-                                <p class="text-xs text-stone-500 mt-1">Example: Does increasing Temperature increase Voltage?</p>
-                            </button>
+                            <button onclick="wizardNext(2, '2groups')" class="p-6 border-2 border-stone-50 rounded-2xl hover:border-amber-500 hover:bg-amber-50 text-left transition-all font-bold">Two Groups (e.g. Invention vs Control)</button>
+                            <button onclick="wizardNext(2, '3groups')" class="p-6 border-2 border-stone-50 rounded-2xl hover:border-amber-500 hover:bg-amber-50 text-left transition-all font-bold">Three+ Groups (e.g. 10%, 20%, 30% concentration)</button>
                         </div>
                     </div>
 
                     <div id="step-3" class="stats-step">
-                        <h4 class="text-lg font-bold text-stone-400 uppercase tracking-widest mb-4">Step 3 of 3</h4>
-                        <h2 class="text-3xl font-bold text-stone-900 mb-8">How are the samples related?</h2>
+                        <h4 class="text-xs font-bold text-stone-400 uppercase tracking-widest mb-4">Step 3: Sample Relation</h4>
+                        <h2 class="text-3xl font-bold mb-8">Are the samples Related?</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button onclick="nextStep(3, 'independent')" class="p-6 rounded-xl border-2 border-stone-100 hover:border-amber-500 hover:bg-amber-50 text-left">
-                                <h3 class="font-bold text-stone-900">Independent</h3>
-                                <p class="text-xs text-stone-500 mt-1">Different subjects in each group (e.g., Plant A is different from Plant B).</p>
-                            </button>
-                            <button onclick="nextStep(3, 'paired')" class="p-6 rounded-xl border-2 border-stone-100 hover:border-amber-500 hover:bg-amber-50 text-left">
-                                <h3 class="font-bold text-stone-900">Paired / Repeated</h3>
-                                <p class="text-xs text-stone-500 mt-1">Same subject measured twice (e.g., Before vs After).</p>
-                            </button>
+                            <button onclick="wizardNext(3, 'independent')" class="p-6 border-2 border-stone-50 rounded-2xl hover:border-amber-500 hover:bg-amber-50 text-left transition-all font-bold">Independent (Different Subjects)</button>
+                            <button onclick="wizardNext(3, 'paired')" class="p-6 border-2 border-stone-50 rounded-2xl hover:border-amber-500 hover:bg-amber-50 text-left transition-all font-bold">Paired (Same Subject tested twice)</button>
                         </div>
                     </div>
 
-                    <div id="stats-result" class="stats-step">
-                        <div class="bg-amber-50 border border-amber-200 rounded-3xl p-10 text-center">
-                            <span class="text-xs font-bold text-amber-600 uppercase tracking-widest">Recommended Test</span>
-                            <h2 id="result-title" class="text-4xl font-extrabold text-stone-900 mt-3 mb-6">Result Name</h2>
-                            <p id="result-desc" class="text-stone-600 text-lg mb-8">Description...</p>
-                            <div class="inline-block bg-white px-6 py-3 rounded-full border border-stone-200 text-xs font-mono text-stone-500">
-                                Logic Path: <span id="result-path">...</span>
-                            </div>
+                    <div id="step-result" class="stats-step">
+                        <div class="bg-amber-50 p-10 rounded-3xl border border-amber-200 text-center">
+                            <span class="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Recommended Test</span>
+                            <h2 id="final-test-name" class="text-4xl font-black text-stone-900 my-4">Test Name</h2>
+                            <p id="final-test-desc" class="text-stone-600 mb-8 max-w-sm mx-auto">Description of the statistical logic...</p>
+                            <div class="inline-block bg-white px-4 py-2 rounded-full text-[10px] font-mono border border-stone-200 text-stone-400 uppercase">Path: <span id="final-test-path">...</span></div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -493,203 +354,137 @@
     </main>
 
     <script>
-        // --- Countdown Logic ---
-        const defenseDate = new Date("March 30, 2026 08:00:00").getTime();
-        
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = defenseDate - now;
-
-            if (distance < 0) {
-                document.getElementById('countdown').innerHTML = "<div class='col-span-3 text-red-500 font-bold text-xs'>DEFENSE STARTED</div>";
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-            document.getElementById('cd-days').innerText = days;
-            document.getElementById('cd-hours').innerText = hours;
-            document.getElementById('cd-mins').innerText = minutes;
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
-        // --- Navigation Logic ---
+        // --- Navigation ---
         function navigate(targetId) {
-            // Hide all sections
-            document.querySelectorAll('section').forEach(el => el.classList.add('hidden-section'));
-            
-            // Show target
+            document.querySelectorAll('section').forEach(s => s.classList.add('hidden-section'));
             document.getElementById(targetId).classList.remove('hidden-section');
             
-            // Update Sidebar UI
             document.querySelectorAll('.nav-item').forEach(btn => {
                 if(btn.dataset.target === targetId) {
                     btn.classList.add('bg-stone-800', 'text-white');
-                    if(targetId === 'tools') {
-                        btn.classList.remove('text-amber-500'); 
-                        btn.classList.add('text-amber-400');
-                    }
+                    btn.classList.remove('text-stone-300');
                 } else {
-                    btn.classList.remove('bg-stone-800', 'text-white', 'text-amber-400');
-                    if(btn.dataset.target === 'tools') {
-                        btn.classList.add('text-amber-500');
-                    }
+                    btn.classList.remove('bg-stone-800', 'text-white');
+                    btn.classList.add('text-stone-300');
                 }
             });
-
-            // Mobile menu close
-            if(window.innerWidth < 768) {
-                document.getElementById('sidebar').classList.add('hidden');
-            }
+            if(window.innerWidth < 768) document.getElementById('sidebar').classList.add('hidden');
         }
 
-        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('hidden');
-            sidebar.classList.toggle('flex');
-            sidebar.classList.toggle('fixed');
-            sidebar.classList.toggle('inset-0');
-            sidebar.classList.toggle('z-50');
-        });
-
-        // --- Lock Screen Logic ---
-        function attemptUnlock() {
-            const input = document.getElementById('password-input');
-            const error = document.getElementById('error-msg');
-            const lockIcon = document.getElementById('lock-icon');
+        // --- Countdown ---
+        const defenseDate = new Date("March 30, 2026 08:00:00").getTime();
+        function updateCD() {
+            const now = new Date().getTime();
+            const dist = defenseDate - now;
+            const days = Math.floor(dist / (1000 * 60 * 60 * 24));
+            const hrs = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
             
-            if(input.value === "lsfraven") {
+            if(dist > 0) {
+                document.getElementById('cd-days').innerText = days;
+                document.getElementById('cd-hours').innerText = hrs;
+                document.getElementById('cd-mins').innerText = mins;
+            }
+        }
+        setInterval(updateCD, 60000);
+        updateCD();
+
+        // --- Unlock Logic ---
+        function attemptUnlock() {
+            const input = document.getElementById('passkey').value;
+            const error = document.getElementById('error-txt');
+            if(input === "lsfraven") {
                 document.getElementById('lock-screen').classList.add('hidden');
-                document.getElementById('unlocked-content').classList.remove('hidden');
-                lockIcon.innerHTML = "🔓";
+                document.getElementById('unlocked-tools').classList.remove('hidden');
                 error.classList.add('hidden');
             } else {
                 error.classList.remove('hidden');
-                document.getElementById('lock-screen').classList.add('shake');
-                setTimeout(() => document.getElementById('lock-screen').classList.remove('shake'), 500);
-                input.value = '';
             }
         }
 
-        // --- Stats Engine Logic ---
-        let userPath = {};
-
-        function nextStep(step, value) {
-            userPath[`step${step}`] = value;
-            
-            // Hide current
+        // --- Stats Engine ---
+        let path = {};
+        function wizardNext(step, val) {
+            path[`s${step}`] = val;
             document.getElementById(`step-${step}`).classList.remove('active');
-
-            // Route Logic
-            if(step === 1) {
-                if(value === 'continuous') {
-                    document.getElementById('step-2').classList.add('active');
-                } else if (value === 'categorical') {
-                    showResult('Chi-Square Test', 'Tests if two categorical variables are related.', 'Categorical Data');
-                } else if (value === 'ordinal') {
-                    document.getElementById('step-2').classList.add('active'); // Modified flow for ordinal
-                }
-            } else if (step === 2) {
-                if(value === 'correlation') {
-                     showResult('Pearson Correlation', 'Measures strength of relationship between two variables.', 'Continuous + Correlation');
-                } else {
-                    document.getElementById('step-3').classList.add('active');
-                }
+            
+            if(step === 1 && val === 'categorical') {
+                showFinal("Chi-Square Test", "Tests relationship between categorical variables.", "Categorical Data");
+            } else if (step === 1 || step === 2) {
+                document.getElementById(`step-${step+1}`).classList.add('active');
             } else if (step === 3) {
-                calculateFinal();
+                calcResult();
             }
         }
 
-        function calculateFinal() {
-            const s1 = userPath.step1;
-            const s2 = userPath.step2;
-            const s3 = userPath.step3; // independent or paired
-            
-            let title = "Consult Advisor";
-            let desc = "Complex design detected.";
+        function showFinal(name, desc, pStr) {
+            document.querySelectorAll('.stats-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step-result').classList.add('active');
+            document.getElementById('final-test-name').innerText = name;
+            document.getElementById('final-test-desc').innerText = desc;
+            document.getElementById('final-test-path').innerText = pStr;
+        }
 
+        function calcResult() {
+            const {s1, s2, s3} = path;
+            let n = "Consult Advisor", d = "Complex design.", pStr = `${s1} > ${s2} > ${s3}`;
+            
             if(s1 === 'continuous') {
                 if(s2 === '2groups') {
-                    if(s3 === 'independent') { title = "Independent T-Test"; desc = "Comparing means of 2 separate groups."; }
-                    else { title = "Paired T-Test"; desc = "Comparing same group Before & After."; }
-                } else if (s2 === '3groups') {
-                    if(s3 === 'independent') { title = "One-Way ANOVA"; desc = "Comparing means of 3+ separate groups."; }
-                    else { title = "Repeated Measures ANOVA"; desc = "Comparing same group across 3+ time points."; }
+                    n = (s3 === 'independent') ? "Independent T-Test" : "Paired T-Test";
+                    d = "Comparing the means of two sets of continuous data.";
+                } else {
+                    n = (s3 === 'independent') ? "One-Way ANOVA" : "Repeated Measures ANOVA";
+                    d = "Comparing means of 3 or more data groups.";
                 }
             } else if (s1 === 'ordinal') {
                 if(s2 === '2groups') {
-                    if(s3 === 'independent') { title = "Mann-Whitney U Test"; desc = "Non-parametric comparison of 2 groups."; }
-                    else { title = "Wilcoxon Signed-Rank"; desc = "Non-parametric paired comparison."; }
-                } else if (s2 === '3groups') {
-                    if(s3 === 'independent') { title = "Kruskal-Wallis H Test"; desc = "Non-parametric ANOVA."; }
-                    else { title = "Friedman Test"; desc = "Non-parametric repeated measures."; }
+                    n = (s3 === 'independent') ? "Mann-Whitney U" : "Wilcoxon Signed Rank";
+                    d = "Non-parametric comparison of ranked data.";
+                } else {
+                    n = (s3 === 'independent') ? "Kruskal-Wallis" : "Friedman Test";
+                    d = "Non-parametric version of ANOVA.";
                 }
             }
-
-            showResult(title, desc, `${s1} > ${s2} > ${s3}`);
+            showFinal(n, d, pStr);
         }
 
-        function showResult(title, desc, path) {
-            document.querySelectorAll('.stats-step').forEach(el => el.classList.remove('active'));
-            document.getElementById('stats-result').classList.add('active');
-            
-            document.getElementById('result-title').innerText = title;
-            document.getElementById('result-desc').innerText = desc;
-            document.getElementById('result-path').innerText = path;
-        }
-
-        function resetStats() {
-            userPath = {};
-            document.querySelectorAll('.stats-step').forEach(el => el.classList.remove('active'));
+        function resetWizard() {
+            path = {};
+            document.querySelectorAll('.stats-step').forEach(s => s.classList.remove('active'));
             document.getElementById('step-1').classList.add('active');
         }
 
         // --- Charts ---
         window.onload = function() {
-            // Timeline Chart
-            new Chart(document.getElementById('timelineChart'), {
+            const ctx = document.getElementById('workloadChart').getContext('2d');
+            new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['W1-3 (Plan)', 'W4-7 (Build)', 'W8-10 (Test)', 'W11-13 (Defend)'],
+                    labels: ['Phase 1: Validation', 'Phase 2: Execution', 'Phase 3: Reliability', 'Phase 4: Synthesis'],
                     datasets: [{
-                        label: 'Intensity',
-                        data: [30, 85, 70, 100],
+                        label: 'Workload Intensity (%)',
+                        data: [40, 95, 80, 100],
                         backgroundColor: ['#d6d3d1', '#f59e0b', '#78716c', '#1c1917'],
-                        borderRadius: 6
+                        borderRadius: 12
                     }]
                 },
-                options: { 
-                    responsive: true, 
+                options: {
+                    responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: { y: { display: false }, x: { grid: { display: false } } }
+                    scales: { y: { beginAtZero: true, max: 100 } },
+                    plugins: { legend: { display: false } }
                 }
             });
-
-            // Grading Chart
-            new Chart(document.getElementById('gradingChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Engineering Goals', 'Scientific Thought', 'Process/Agility', 'Presentation'],
-                    datasets: [{
-                        data: [40, 30, 20, 10],
-                        backgroundColor: ['#1c1917', '#44403c', '#a8a29e', '#f59e0b'],
-                        borderWidth: 0
-                    }]
-                },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } } 
-                }
-            });
-
             navigate('dashboard');
         };
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const s = document.getElementById('sidebar');
+            s.classList.toggle('hidden');
+            s.classList.toggle('absolute');
+            s.classList.toggle('w-full');
+        });
     </script>
 </body>
 </html>
