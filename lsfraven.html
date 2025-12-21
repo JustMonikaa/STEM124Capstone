@@ -18,35 +18,35 @@
 
     <div class="max-w-5xl mx-auto fade-in">
         <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-stone-200">
-            <div class="bg-stone-900 p-6 text-white flex justify-between items-center">
+            <div class="bg-stone-900 p-6 text-white flex justify-between items-center border-b border-stone-800">
                 <div>
-                    <h3 class="font-bold text-xl">Expert Statistical Decision Engine</h3>
-                    <p class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mt-1">Authorized Access Only</p>
+                    <h3 class="font-bold text-xl tracking-tight">Expert Statistical Decision Engine</h3>
+                    <p class="text-[10px] text-amber-500 font-bold uppercase tracking-widest mt-1">Full Diagnostic Mode Enabled</p>
                 </div>
-                <button onclick="window.location.href='index.html'" class="text-xs bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-full transition">Back to Dashboard</button>
+                <button onclick="window.location.href='index.html'" class="text-xs bg-stone-800 hover:bg-stone-700 px-4 py-2 rounded-full transition border border-stone-700">Back to Dashboard</button>
             </div>
             
-            <div class="p-8 min-h-[500px]">
+            <div class="p-8 min-h-[500px] bg-white">
                 <div id="stats-step-1" class="stats-step active">
-                    <h4 class="text-xl font-bold mb-6">1. What is the nature of your Dependent Variable (DV)?</h4>
+                    <h4 class="text-xl font-bold mb-6 text-stone-900">1. What is the nature of your Dependent Variable (DV)?</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <button onclick="selectStatsStep(1, 'continuous')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                            <span class="block font-bold">Continuous</span>
-                            <span class="text-xs text-stone-500">Scale/Ratio measurements (e.g. 10.5kg, 3.2m, 45sec)</span>
+                        <button onclick="selectStatsStep(1, 'continuous')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition group">
+                            <span class="block font-bold text-stone-800 group-hover:text-amber-700">Continuous</span>
+                            <span class="text-xs text-stone-500 leading-relaxed">Scale/Ratio measurements (e.g. 10.5kg, 3.2m, 45sec)</span>
                         </button>
-                        <button onclick="selectStatsStep(1, 'categorical')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                            <span class="block font-bold">Categorical</span>
-                            <span class="text-xs text-stone-500">Groups/Categories (e.g. Yes/No, Red/Blue, Pass/Fail)</span>
+                        <button onclick="selectStatsStep(1, 'categorical')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition group">
+                            <span class="block font-bold text-stone-800 group-hover:text-amber-700">Categorical</span>
+                            <span class="text-xs text-stone-500 leading-relaxed">Groups/Categories (e.g. Yes/No, Red/Blue, Pass/Fail)</span>
                         </button>
-                        <button onclick="selectStatsStep(1, 'ordinal')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
-                            <span class="block font-bold">Ordinal</span>
-                            <span class="text-xs text-stone-500">Ranked data (e.g. Low/Med/High, 1st/2nd/3rd)</span>
+                        <button onclick="selectStatsStep(1, 'ordinal')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition group">
+                            <span class="block font-bold text-stone-800 group-hover:text-amber-700">Ordinal</span>
+                            <span class="text-xs text-stone-500 leading-relaxed">Ranked data (e.g. Low/Med/High, 1st/2nd/3rd)</span>
                         </button>
                     </div>
                 </div>
 
                 <div id="stats-step-2" class="stats-step">
-                    <h4 class="text-xl font-bold mb-6">2. How many Independent Variables (IV) or groups?</h4>
+                    <h4 class="text-xl font-bold mb-6 text-stone-900">2. How many Independent Variables (IV) or groups?</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button onclick="selectStatsStep(2, 'one-cat-2')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
                             <span class="block font-bold text-lg">Two Groups</span>
@@ -64,7 +64,7 @@
                 </div>
 
                 <div id="stats-step-3" class="stats-step">
-                    <h4 class="text-xl font-bold mb-6">3. Are the samples Independent or Paired?</h4>
+                    <h4 class="text-xl font-bold mb-6 text-stone-900">3. Are the samples Independent or Paired?</h4>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <button onclick="selectStatsStep(3, 'independent')" class="p-6 border-2 border-stone-100 rounded-2xl text-left hover:border-amber-500 hover:bg-amber-50 transition">
                             <span class="block font-bold text-lg">Independent</span>
@@ -77,14 +77,16 @@
                     </div>
                 </div>
 
-                <div id="stats-result" class="stats-step p-10 bg-amber-50 border-2 border-amber-200 rounded-3xl">
-                    <span class="inline-block bg-amber-600 text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase mb-4">Recommended Statistical Test</span>
-                    <h4 id="res-test-name" class="text-3xl font-extrabold text-stone-900 mb-4">Test Name</h4>
-                    <p id="res-test-desc" class="text-lg text-stone-600 mb-8 leading-relaxed">Description...</p>
-                    <div class="p-4 bg-white rounded-xl border border-amber-200 text-xs font-mono text-stone-500">
+                <div id="stats-result" class="stats-step p-10 bg-amber-50 border-2 border-amber-200 rounded-3xl fade-in">
+                    <span class="inline-block bg-amber-600 text-white px-4 py-1 rounded-full text-[10px] font-bold uppercase mb-4 tracking-tighter">Recommended Statistical Test</span>
+                    <h4 id="res-test-name" class="text-3xl font-extrabold text-stone-900 mb-4 tracking-tight">Test Name</h4>
+                    <p id="res-test-desc" class="text-lg text-stone-600 mb-8 leading-relaxed max-w-2xl">Description...</p>
+                    <div class="p-4 bg-white rounded-xl border border-amber-200 text-xs font-mono text-stone-400">
                         Logic: <span id="res-ucla-logic">...</span>
                     </div>
-                    <button onclick="resetStatsWizard()" class="mt-8 text-sm font-bold text-stone-900 hover:underline">← Start Over</button>
+                    <button onclick="resetStatsWizard()" class="mt-8 text-sm font-bold text-stone-900 hover:text-amber-600 transition inline-flex items-center gap-2">
+                        <span>&#8592;</span> Start New Calculation
+                    </button>
                 </div>
             </div>
         </div>
@@ -94,7 +96,6 @@
         // --- SECURITY: REFERRER CHECK ---
         (function() {
             const ref = document.referrer;
-            // Kick users out if they didn't come from the main page
             if (!ref.includes("index.html") && ref !== "") {
                 alert("Unauthorized access. Please log in through the main dashboard.");
                 window.location.href = "index.html";
@@ -112,11 +113,13 @@
             } else if (step === 2) {
                 statsSelection.ivConfig = val;
                 document.getElementById('stats-step-2').classList.remove('active');
-                // Auto-process if continuous IV or categorical DV
-                if (['one-cont', 'multi'].includes(val) || statsSelection.dvType === 'categorical') {
-                    processStatsResult();
-                } else {
+                
+                // --- FIX: DECIDE IF WE NEED STEP 3 ---
+                // Original logic only uses Pairing for Continuous DVs with Categorical IVs.
+                if (statsSelection.dvType === 'continuous' && (val === 'one-cat-2' || val === 'one-cat-many')) {
                     document.getElementById('stats-step-3').classList.add('active');
+                } else {
+                    processStatsResult();
                 }
             } else if (step === 3) {
                 statsSelection.pairing = val;
@@ -150,6 +153,7 @@
                 logic: "Complex/Mixed IVs" 
             };
 
+            // RESTORED FULL ORIGINAL LOGIC
             if (dv === 'continuous') {
                 if (iv === 'one-cat-2') {
                     if (pair === 'independent') res = { name: "Independent T-Test", desc: "Use this to compare the mean performance of your product vs. a commercial standard.", logic: "1 DV (Cont), 1 IV (2 Groups), Independent" };
